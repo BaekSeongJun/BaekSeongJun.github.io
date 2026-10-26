@@ -417,18 +417,18 @@
         <li class="cy-item" style="--c:var(--orange)"><span class="n">03</span><span class="t">우리동네약값</span><span class="c">최저가 추천 · 1인</span></li>
       </ul>
       <div class="cy-shots">
-        <div class="cy-shot"><div class="role-card" style="--c:var(--primary)"><div><h3>HelpNest</h3><span class="meta">2026.09 – 10 · 팀장 · SPRING BOOT 4 · NEXT.JS 16</span>
+        <div class="cy-shot"><div class="role-card" style="--c:var(--primary)"><div><h3>HelpNest</h3><span class="meta">2026.09.11 – 11.04 · 팀장 · SPRING BOOT 4 · NEXT.JS 16</span>
           <ul><li><span class="n">01</span>저장소 3개 · 브랜치 전략 · CODEOWNERS · 기술 스택 선정과 초기 세팅</li><li><span class="n">02</span>Spring Security + JWT 인증 (Access 30분 · Refresh 14일 httpOnly 쿠키)</li><li><span class="n">03</span>회원 · 문의 접수 · 첨부파일 · FAQ · 답변 템플릿 · 만족도 설문 도메인</li><li><span class="n">04</span>도메인 연동을 이벤트 / 포트 계약으로 분리</li><li><span class="n">05</span>프론트 공통 fetch 래퍼 · JWT 자동 재발급 · 역할 기반 AuthGuard</li></ul>
           <div class="links"><a href="https://helpnest.kro.kr" target="_blank" rel="noopener">Live ↗</a><a href="https://github.com/BaekSeongJun/helpnest-back" target="_blank" rel="noopener">back ↗</a><a href="https://github.com/BaekSeongJun/helpnest-front" target="_blank" rel="noopener">front ↗</a></div></div>
           <img src="img/05-admin-dashboard.jpg" alt="HelpNest 관리자 대시보드"></div></div>
         <div class="cy-shot"><div class="role-card" style="--c:var(--teal)"><div><h3>BooksCamp</h3><span class="meta">2025.10 – 12 · NHN ACADEMY · SPRING CLOUD MSA</span>
-          <ul><li><span class="n">01</span>회원 도메인과 인증 · 인가 전체를 직접 구현</li><li><span class="n">02</span>Auth 서버 JWT 발급, Refresh Token은 Redis에 저장</li><li><span class="n">03</span>Gateway에서 Access 검증 · 만료 시 재발급, API는 <code>@RequiredRole</code>로 인가</li><li><span class="n">04</span>Payco · Google OAuth2 로그인, 3개월 미접속 휴면 전환 스케줄러</li><li><span class="n">05</span>마이페이지 · 관리자 회원 관리 화면 (Thymeleaf)</li></ul>
+          <ul><li><span class="n">01</span>회원 도메인과 인증 · 인가 전체를 직접 구현</li><li><span class="n">02</span>Auth 서버 JWT 발급, Refresh Token은 Redis에 저장하고 재발급마다 회전</li><li><span class="n">03</span>Gateway에서 JWT 검증 후 회원 ID · 권한을 헤더로 전달, API는 <code>@RequiredRole</code> AOP로 인가</li><li><span class="n">04</span>Payco · Google OAuth2 로그인, 3개월 미접속 휴면 전환 스케줄러</li><li><span class="n">05</span>마이페이지 · 관리자 회원 관리 화면 (Thymeleaf)</li></ul>
           <div class="links"><a href="https://github.com/nhnacademy-be11-bookscamp" target="_blank" rel="noopener">GitHub ↗</a></div></div>
           <div class="vis"><pre>Client
-  → Gateway   Access 검증
-  → 만료?     Refresh @ Redis
-  → Auth      재발급
-  → API       @RequiredRole</pre><div class="big">8인 · MSA</div><div class="cap">Gateway · Eureka · Config · Redis · RabbitMQ</div></div></div></div>
+  → Gateway   JWT 검증 → X-User-Role
+  → API       @RequiredRole (AOP)
+  → 만료 시   POST /reissue
+  → Redis     Refresh 비교 · 회전</pre><div class="big">8인 · MSA</div><div class="cap">Gateway · Eureka · Config · Redis · RabbitMQ</div></div></div></div>
         <div class="cy-shot"><div class="role-card" style="--c:var(--orange)"><div><h3>우리동네약값</h3><span class="meta">2026.09 · 1인 개발 · SPRING BOOT 4.1 · POSTGRESQL 17</span>
           <ul><li><span class="n">01</span>사용자 제보로 위치별 일반의약품 최저가를 추천하는 서비스</li><li><span class="n">02</span>Python으로 공공데이터를 시드 SQL로 변환 (약국 23,571곳 · 약품 4,762종)</li><li><span class="n">03</span><code>pg_trgm</code> GIN 인덱스로 약국 · 약품 이름 검색</li><li><span class="n">04</span>PRD · DB · API 명세 문서를 직접 작성</li></ul>
           <div class="links"><a href="https://github.com/BaekSeongJun/miniproject1" target="_blank" rel="noopener">GitHub ↗</a></div></div>
@@ -466,13 +466,17 @@
 if (existing.filter(m -&gt; m.getRole() != MemberRole.CUSTOMER).isPresent()) {
     throw new BusinessException(AuthErrorCode.OAUTH_STAFF_NOT_ALLOWED);
 }</pre></figure></div></div></li>
-      <li class="stack-item"><div class="stack-card"><div><div class="no">03 / 04</div><div class="q">서비스가 여러 개인데 인증은 어디서 한 번에?</div><div class="o"><span class="owner" style="--c:var(--teal)">BooksCamp</span></div></div><div class="side"><div class="lbl">해결</div><p class="a">토큰 검증을 <b>Gateway 한 곳</b>으로 모으고, 만료되면 Redis에 둔 Refresh Token으로 재발급합니다. 각 API 서버는 <b>@RequiredRole</b> 로 권한만 확인합니다.</p><figure class="code"><figcaption>인증 흐름</figcaption><pre>Client ─▶ Gateway  : Access Token 검증
-           │ 만료
-           ▼
-         Auth 서버  : Refresh Token (Redis) 확인 → 재발급
-           │
-           ▼
-         API 서버   : @RequiredRole 로 인가</pre></figure></div></div></li>
+      <li class="stack-item"><div class="stack-card"><div><div class="no">03 / 04</div><div class="q">MSA에서 인증은 한 곳에서, 탈취된 Refresh Token은 어떻게 막을까</div><div class="o"><span class="owner" style="--c:var(--teal)">BooksCamp</span></div></div><div class="side"><div class="lbl">해결</div><p class="a">JWT 검증은 <b>Gateway 한 곳</b>에서 하고 회원 ID · 권한을 헤더로 넘겨, API는 <b>@RequiredRole</b> 로 권한만 봅니다. Refresh Token은 Redis에 하나만 두고 재발급마다 바꾸며, <b>Redis 값과 다르면 탈취로 보고 세션을 지웁니다.</b></p><figure class="code"><figcaption>auth · ReissueController.java</figcaption><pre>String tokenInRedis =
+        refreshTokenRepository.findByMemberId(userKey);
+// … 로그아웃해서 Redis 에 없으면 401
+
+if (!tokenInRedis.equals(refreshToken)) {
+    log.warn(&quot;Refresh token mismatch (possible token theft). Key: {}&quot;,
+            userKey);
+    refreshTokenRepository.deleteByMemberId(userKey);
+    return new ResponseEntity&lt;&gt;(&quot;Refresh token mismatch&quot;,
+            HttpStatus.UNAUTHORIZED);
+}</pre></figure></div></div></li>
       <li class="stack-item"><div class="stack-card"><div><div class="no">04 / 04</div><div class="q">수백만 건 데이터에서 약 이름을 빠르게 찾기</div><div class="o"><span class="owner" style="--c:var(--orange)">우리동네약값</span></div></div><div class="side"><div class="lbl">해결</div><p class="a">공공데이터를 <b>Python으로 시드 SQL</b>로 바꿔 넣고, 부분 일치 검색은 <b>pg_trgm GIN 인덱스</b>로 처리했습니다. <code>LIKE '%타이레놀%'</code> 도 인덱스를 탑니다.</p><figure class="code"><figcaption>V1__init.sql</figcaption><pre>CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
 CREATE INDEX idx_pharmacy_name_trgm
