@@ -388,6 +388,10 @@
     .chal { padding-top: clamp(112px, 14vh, 150px); padding-bottom: clamp(64px, 9vh, 100px); }
     .magnet { translate: none !important; }
     .js .words .w { opacity: 1; }
+
+    /* 파일 탭 모드: 연 파일(섹션) 하나만 보인다 */
+    .js body > :is(header, section, footer):not(.open) { display: none; }
+    .js body > .open { min-height: calc(100vh - 100px); border-top: 0; }
   }
   @media screen and (min-width: 900px) { :root { --gut: 52px; } }
   @media screen and (min-width: 1200px) { :root { --tree: 264px; } .tree { display: block; } }
@@ -696,9 +700,6 @@ CREATE INDEX idx_drug_display_name_trgm
     addEventListener('scroll', () => {
       const h = document.documentElement;
       bar.style.transform = `scaleX(${h.scrollTop / (h.scrollHeight - innerHeight || 1)})`;
-      const end = innerHeight + scrollY >= h.scrollHeight - 2;
-      const k = end ? slides.length - 1 : slides.findLastIndex(s => s.getBoundingClientRect().top <= 80);
-      cur = Math.max(0, k); markNav(slides[cur]);
       statusLn.textContent = (Math.floor((scrollY + 76) / 26) + 1) + ':1';
     }, { passive: true });
   }
@@ -711,13 +712,6 @@ CREATE INDEX idx_drug_display_name_trgm
     else items.forEach((li, k) => li.style.top = Math.min(100, innerHeight - hs[k] - 16) + 'px');
   }
   addEventListener('load', fitStack); addEventListener('resize', fitStack);
-  // 휴대폰 메뉴: 지금 보는 섹션 링크를 가로로 따라가 보이게
-  let lastCur = null;
-  addEventListener('scroll', () => {
-    const c = nav.querySelector('a.cur');
-    if (c && c !== lastCur && nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: c.offsetLeft - nav.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
-    lastCur = c;
-  }, { passive: true });
 
   // IDE 장식: 왼쪽 줄 번호를 문서 길이만큼 채운다
   const gutter = document.getElementById('gutter');
@@ -728,7 +722,20 @@ CREATE INDEX idx_drug_display_name_trgm
     gutter.textContent = Array.from({ length: Math.ceil(h / 26) }, (_, i) => i + 1).join('\n');
   }
   addEventListener('load', fillGutter); addEventListener('resize', fillGutter);
-  markNav(slides[0]);
+
+  // 파일 열기: 주소의 #섹션에 해당하는 섹션만 보여 주고 맨 위로
+  function openFile() {
+    const k = Math.max(0, slides.findIndex(s => '#' + s.id === location.hash));
+    slides.forEach((s, i) => s.classList.toggle('open', i === k));
+    cur = k; markNav(slides[k]);
+    scrollTo(0, 0); fitStack(); fillGutter();
+    statusLn.textContent = '1:1';
+    // 휴대폰: 연 파일 탭이 보이게 가로로 따라간다
+    const c = nav.querySelector('a.cur');
+    if (c && nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: c.offsetLeft - nav.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
+  }
+  addEventListener('hashchange', openFile);
+  openFile();
 
   // 코드 블록에 IDE 문법 색을 입힌다 (글자는 그대로, 색만)
   const esc = t => t.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
