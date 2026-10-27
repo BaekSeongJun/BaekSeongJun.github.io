@@ -9,7 +9,9 @@
 <meta property="og:description" content="인증부터 배포까지, 끝까지 파고드는 백엔드 개발자">
 <meta property="og:image" content="https://baekseongjun.github.io/img/02-agent-ticket.jpg">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%230d120e'/><text x='16' y='22' font-size='15' font-weight='800' text-anchor='middle' fill='white' font-family='sans-serif'>B</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%233574f0'/><text x='16' y='22' font-size='15' font-weight='800' text-anchor='middle' fill='white' font-family='sans-serif'>B</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;800&display=swap">
 <script>document.documentElement.classList.add('js')</script>
 <style>
   @font-face {
@@ -42,27 +44,10 @@
   .dark { background: var(--dark); color: #fff; }
   .screen { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 100px 0 44px; position: relative; }
 
-  /* 상단 진행 막대 · 떠 있는 내비 · 오른쪽 쪽 표시 */
-  #bar { position: fixed; left: 0; top: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--primary-2), var(--ai)); z-index: 60; }
-  .nav {
-    position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 50;
-    display: flex; align-items: center; gap: 4px; padding: 6px 6px 6px 18px; border-radius: 999px;
-    background: rgba(255,255,255,.72); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4);
-    box-shadow: 0 10px 30px rgba(15,23,42,.12); font-size: 15px; font-weight: 650; white-space: nowrap; transition: background .3s, color .3s;
-  }
-  .js .nav { animation: drop .7s var(--ease) .2s both; }
-  .nav.on-dark { background: rgba(20,27,21,.66); color: #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
-  .nav .logo { display: flex; align-items: center; gap: 8px; font-weight: 850; margin-right: 10px; }
-  .nav .logo i { width: 22px; height: 22px; border-radius: 7px; background: var(--primary); display: grid; place-items: center; color: #fff; font-style: normal; font-size: 12px; font-weight: 850; }
-  .nav a.lnk { padding: 7px 13px; border-radius: 999px; color: var(--muted); transition: color .2s, background .2s; }
-  .nav.on-dark a.lnk { color: #94a3b8; }
-  .nav a.lnk.cur { color: var(--ink); background: rgba(15,23,42,.06); }
-  .nav.on-dark a.lnk.cur { color: #fff; background: rgba(255,255,255,.1); }
-  .nav a.live { margin-left: 6px; padding: 8px 16px; border-radius: 999px; background: var(--primary); color: #fff; }
-  @media (max-width: 980px) { .nav a.lnk { display: none; } }
+  /* 상단 진행 막대 */
+  #bar { position: fixed; left: 0; top: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: var(--primary); z-index: 60; }
 
   /* ── 등장 애니메이션 ── */
-  @keyframes drop { from { opacity: 0; transform: translate(-50%, -14px) scale(.9); } to { opacity: 1; transform: translateX(-50%); } }
   @keyframes drop-b { from { opacity: 0; transform: translateY(-14px) scale(.9); } to { opacity: 1; transform: none; } }
   @keyframes pop { 0% { opacity: 0; transform: scale(.3) rotate(-10deg); } 60% { opacity: 1; } 100% { opacity: 1; transform: none; } }
   @keyframes up { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
@@ -216,7 +201,7 @@
   @media print {
     @page { size: A4; margin: 14mm; }
     body { background: #fff; font-size: 12pt; }
-    #bar, #glow, .nav, .cta, .marquee, .floating, .hero::before, .hero::after, .end::before { display: none !important; }
+    #bar, #glow, .ide-top, .tree, .status, #gutter, .cta, .marquee, .floating, .hero::before, .hero::after, .end::before { display: none !important; }
     .dark { background: #fff !important; color: var(--ink) !important; }
     .dark .intro, .stack-card .a, .end-grid .v, .hero-meta dd { color: var(--ink-2) !important; }
     .screen, .chal { display: block; min-height: 0; padding: 18px 0; }
@@ -264,95 +249,154 @@
     .screen { padding: 84px 0 26px; }
     .head-row .intro { font-size: 15.5px; }
   }
-  /* ── 레퍼런스 스타일: 짙은 녹흑 · 라임 · 연회색 패널 ──
-     라임은 버튼 · 번호 · 이름 같은 포인트에만 쓰고 넓은 면은 녹흑 · 연회색으로.
-     내용 · 순서는 그대로 두고 화면 표현만 바꾼다. 인쇄에는 적용하지 않음 */
+  /* ── IntelliJ IDEA 테마 (New UI Dark) ──
+     내용 · 순서는 그대로 두고 화면만 IDE처럼 바꾼다. 인쇄에는 적용하지 않음 */
   @media screen {
-    /* 글씨: 두께는 한 계열로, 큰 한글 제목 자간은 조금 풀어 준다 */
-    .display { font-weight: 700; letter-spacing: -.04em; }
-    h2.title { font-weight: 700; letter-spacing: -.03em; }
-    .numbers .n { font-weight: 650; letter-spacing: -.03em; }
+    :root {
+      --bg: #1e1f22; --paper: #2b2d30; --ink: #dfe1e5; --ink-2: #bcbec4; --muted: #868a91; --line: #393b40;
+      --primary: #56a8f5; --teal: #6aab73; --orange: #cf8e6d; --ai: #c77dff;
+      --hl: rgba(53,116,240,.38); --hl-dark: rgba(53,116,240,.38);
+      --kw: #cf8e6d; --str: #6aab73; --num: #2aacb8; --fn: #56a8f5; --ann: #b3ae60; --cmt: #7a7e85; --accent: #3574f0;
+      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+      --tree: 0px; --gut: 0px;
+    }
+    body { padding: 76px 0 24px var(--tree); }
+    .dark { background: var(--bg); }
+    .wrap { padding-left: calc(var(--gutter) + var(--gut)); }
+    section, footer { border-top: 1px solid var(--line); }
+    #bar, #glow, .hero::before, .hero::after, .end::before, .btn.solid::after { display: none; }
 
-    /* 섹션 리듬: 짧은 섹션이 화면 높이를 억지로 채우지 않게, 밝은 섹션은 바탕을 번갈아 */
-    .screen:not(.hero) { min-height: 0; padding: clamp(112px, 14vh, 150px) 0; }
-    /* 4. 첫 화면 아래 여백을 다른 경계와 비슷하게 */
-    .hero { padding-bottom: clamp(88px, 12vh, 130px); }
-    .chal { padding-top: clamp(120px, 16vh, 180px); padding-bottom: clamp(64px, 9vh, 100px); }
-    #strengths { background: #fcfdfd; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    /* 위: 제목 표시줄 + 파일 탭 */
+    .ide-top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; font-size: 13px; color: var(--ink-2); }
+    .titlebar { height: 40px; display: flex; align-items: center; gap: 16px; padding: 0 14px; background: var(--paper); border-bottom: 1px solid #1e1f22; white-space: nowrap; }
+    .titlebar .win { display: flex; gap: 8px; }
+    .titlebar .win i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+    .titlebar .win i:nth-child(2) { background: #febc2e; } .titlebar .win i:nth-child(3) { background: #28c840; }
+    .titlebar .proj { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); }
+    .titlebar .proj i { width: 20px; height: 20px; border-radius: 5px; background: var(--accent); color: #fff; display: grid; place-items: center; font: 800 10px/1 var(--mono); font-style: normal; }
+    .titlebar .branch, .status .branch { display: flex; align-items: center; gap: 5px; }
+    .gi { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.3; }
+    .titlebar .sp, .status .sp { flex: 1; }
+    .titlebar .run { display: flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 6px; color: var(--ink); }
+    .titlebar .run::before { content: ""; border: 6px solid transparent; border-left: 9px solid #5fb865; border-right: 0; }
+    .titlebar .run:hover { background: var(--line); }
+    .tabs { height: 36px; display: flex; margin-left: var(--tree); background: var(--bg); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tabs a { display: flex; align-items: center; gap: 7px; padding: 0 16px; white-space: nowrap; border-bottom: 2px solid transparent; }
+    .tabs a:hover { background: var(--paper); }
+    .tabs a.cur { color: var(--ink); background: #26282c; border-bottom-color: var(--accent); }
+    .ic { width: 15px; height: 15px; flex: none; display: inline-grid; place-items: center; border-radius: 50%; font: 800 9px/1 var(--mono); color: #1e1f22; background: var(--fn); }
+    .ic.md { border-radius: 3px; background: #8c9bb3; }
+    .ic.y { border-radius: 3px; background: var(--kw); }
 
-    /* 포인트: 라임 버튼 · 로고, 섹션 번호는 녹흑 알약에 라임 글씨 */
-    .nav .logo i, .nav a.live, .btn.solid { background: var(--lime); color: var(--ink); }
-    .eyebrow .no, .dark .eyebrow .no { background: var(--ink); color: var(--lime); }
-    .dark .eyebrow .no { box-shadow: inset 0 0 0 1px rgba(200,240,49,.4); }
-    code { background: #e3f3a6; color: var(--ink); }
-    .marquee .track span::after { color: var(--muted); }
+    /* 왼쪽: 프로젝트 창 */
+    .tree { position: fixed; top: 40px; bottom: 24px; left: 0; width: var(--tree); z-index: 40; display: none; overflow: auto; background: var(--paper); border-right: 1px solid #1e1f22; font-size: 13px; color: var(--ink-2); }
+    .tree .tw { height: 36px; display: flex; align-items: center; padding: 0 14px; font-weight: 700; color: var(--ink); }
+    .tree ul { list-style: none; }
+    .tree li > * { display: flex; align-items: center; gap: 7px; height: 26px; padding: 0 12px 0 calc(14px + var(--lv, 0) * 18px); white-space: nowrap; }
+    .tree a:hover { background: var(--line); }
+    .tree a.cur { background: #2e436e; color: var(--ink); }
+    .tree small { color: var(--muted); font-size: 12px; }
+    .tree .fd { width: 15px; height: 15px; fill: none; stroke: var(--muted); stroke-width: 1.2; }
 
-    /* 형광펜: 밝은 화면은 옅은 라임, 어두운 화면은 글씨만 라임 */
-    .dark mark { background-image: none; color: var(--lime); }
+    /* 줄 번호 · 아래 상태 표시줄 */
+    #gutter { position: absolute; top: 0; left: var(--tree); width: var(--gut); padding-right: 16px; text-align: right; font: 12px/26px var(--mono); color: #4b5059; white-space: pre; overflow: hidden; pointer-events: none; user-select: none; z-index: 2; background: var(--bg); }
+    .status { position: fixed; left: 0; right: 0; bottom: 0; height: 24px; z-index: 50; display: flex; align-items: center; gap: 18px; padding: 0 14px; background: var(--paper); border-top: 1px solid #1e1f22; font-size: 12px; color: var(--ink-2); white-space: nowrap; overflow: hidden; }
+    .status .path { overflow: hidden; text-overflow: ellipsis; }
 
-    /* 읽기 어려웠던 글씨 대비 올리기 */
-    .hero-meta dt, .end-grid .k { color: #9aa49c; }
-    .foot { color: #8f9a92; }
+    /* 글씨: 라벨은 주석, 번호는 숫자 색, 강조는 IDE 선택 영역처럼 */
+    .kick, .eyebrow, .dark .eyebrow { font: 500 14px var(--mono); letter-spacing: 0; text-transform: none; color: var(--cmt); }
+    .kick::before, .eyebrow::before { content: "//"; width: auto; height: auto; background: none; }
+    .eyebrow .no, .dark .eyebrow .no { padding: 0; background: none; color: var(--num); }
+    .display, h2.title { font-weight: 700; letter-spacing: -.035em; color: var(--ink); }
+    .display .ln:nth-child(2) > span, .end .display .ln:nth-child(2) > span { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--kw); }
+    .tagline { color: var(--ink); }
+    .hero .lead, .intro, .dark .intro { color: var(--ink-2); }
+    .hero-meta dt, .end-grid .k { font-family: var(--mono); letter-spacing: 0; text-transform: none; color: var(--cmt); }
+    .hero-meta dd, .end-grid .v { color: var(--ink); }
+    .hero-meta a { border-bottom-color: rgba(86,168,245,.5); }
+    .foot { color: var(--muted); }
+    code { background: var(--line); color: var(--ink); border-radius: 4px; }
 
-    /* 숫자 카드: 연한 패널로 통일하고 첫 카드만 녹흑으로 무게 */
-    .numbers > div { border-radius: 12px; background: var(--paper); }
-    .numbers > div:first-child { background: var(--dark); color: #fff; }
-    .numbers > div:first-child .n small, .numbers > div:first-child .l { color: #aab3ac; }
-    .numbers > div:last-child .n { font-size: clamp(36px, min(3.6vw, 6vh), 60px); }
-
-    /* 강점: 번호를 녹흑 알약으로 */
-    .pain-row .no { justify-self: start; padding: 2px 10px; border-radius: 999px; background: var(--ink); color: var(--lime); font-size: 13px; }
-    .pain-row:hover { background: var(--bg); }
-
-    /* 프로젝트: 회색 겹침 줄이고, 프로젝트마다 제 색, 첫 링크는 진하게 */
-    .role-card { border-radius: 16px; background: var(--paper); box-shadow: 0 1px 0 var(--line); }
-    .role-card img { border-radius: 10px; object-position: 0 0; }
-    .facts { background: none; border: 1px solid var(--line); border-radius: 10px; }
-    .role-card .links a { background: none; border: 1px solid var(--line); }
-    .role-card .links a:first-child { background: var(--c); border-color: var(--c); color: #fff; }
-    .role-card .vis { border-radius: 10px; aspect-ratio: auto; min-height: 280px; justify-content: space-between; gap: 24px; }
-    .role-card .vis { background: linear-gradient(135deg, color-mix(in srgb, var(--c) 72%, #000), var(--c)); }
-    .role-card .vis pre { position: static; opacity: .7; }
-    .chip { background: var(--paper); border: 1px solid var(--line); }
-    .common .lbl { font-size: 14px; color: var(--ink-2); }
-
-    /* 첫 화면 캡처: 평평하게, 떠 있는 카드는 화면 가장자리 밖으로 */
-    .browser { border-radius: 12px; transform: none; }
-    .floating { border-radius: 12px; }
+    /* 버튼 · 캡처 · 떠 있는 알림 */
+    .btn { border-radius: 6px; padding: 12px 22px; font-size: 15px; }
+    .btn.solid { background: var(--accent); color: #fff; }
+    .btn.line { border-color: #4e5157; color: var(--ink); }
+    .browser { border-radius: 10px; transform: none; background: var(--paper); box-shadow: 0 30px 70px rgba(0,0,0,.45), 0 0 0 1px var(--line); }
+    .browser .chrome { background: var(--paper); border-bottom: 1px solid var(--line); }
+    .floating { background: var(--paper); border: 1px solid #43454a; border-radius: 8px; }
+    .floating .t { font-family: var(--mono); letter-spacing: 0; color: var(--fn); }
     .floating.f2 { top: -58px; right: -18px; }
 
-    /* 문제 해결: 어두운 화면 위 같은 톤 카드, 질문이 먼저 보이게 */
-    .stack-card { border-radius: 16px; border: 0; box-shadow: 0 -8px 24px rgba(0,0,0,.22); color: var(--ink); background: #eef1f4; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-content: center; }
-    .stack-item:nth-child(even) .stack-card { background: #dfe5ea; }
-    .stack-card .no { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--ink); color: var(--lime); font-size: 13px; }
-    .stack-card .lbl { color: var(--ink); }
+    /* 흐르는 띠 · 숫자 */
+    .marquee { border-color: var(--line); color: var(--cmt); }
+    .marquee .track { font: 500 18px var(--mono); }
+    .marquee .track span::after { content: "·"; color: #4e5157; }
+    .numbers > div { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; }
+    .numbers .n { font-family: var(--mono); font-weight: 600; letter-spacing: -.03em; color: var(--num); font-size: clamp(38px, min(3.8vw, 7vh), 66px); }
+    .numbers > div:last-child .n { font-size: clamp(32px, min(3.2vw, 5.6vh), 54px); }
+    .numbers .n small { font-family: "Pretendard", "Malgun Gothic", sans-serif; letter-spacing: 0; }
+    .numbers .l { color: var(--ink-2); }
+
+    /* 강점 */
+    .pain, .pain-row { border-color: var(--line); }
+    .pain-row .no { font-family: var(--mono); font-weight: 500; color: var(--num); }
+    .pain-row:hover { background: var(--paper); }
+    .pain-row p { color: var(--ink-2); }
+
+    /* 프로젝트 */
+    .role-card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
+    .role-card .meta, .facts dt { color: var(--muted); }
+    .facts { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+    .facts dd, .role-card li { color: var(--ink-2); }
+    .role-card img { border-radius: 6px; object-position: 0 0; box-shadow: 0 0 0 1px var(--line); }
+    .role-card .links a { background: none; border: 1px solid #4e5157; border-radius: 6px; color: var(--ink); }
+    .role-card .links a:first-child { background: var(--c); border-color: var(--c); color: #1e1f22; }
+    .role-card .vis { aspect-ratio: auto; min-height: 280px; justify-content: space-between; gap: 24px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; color: var(--ink); }
+    .role-card .vis pre { position: static; opacity: 1; font-family: var(--mono); color: var(--ink-2); }
+    .role-card .vis .big { font-weight: 700; color: var(--c); }
+    .role-card .vis .cap { opacity: 1; color: var(--muted); }
+    .chip { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; color: var(--ink-2); }
+    .common .lbl { font-family: var(--mono); letter-spacing: 0; color: var(--cmt); }
+
+    /* 문제 해결: 카드는 도구 창, 코드는 편집기처럼 */
+    .stack-card { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); background: var(--paper); border: 1px solid #43454a; border-radius: 10px; box-shadow: 0 -10px 30px rgba(0,0,0,.35); color: var(--ink); }
+    .stack-item:nth-child(even) .stack-card { background: #313338; }
+    .stack-card .no { font-family: var(--mono); letter-spacing: 0; color: var(--num); }
+    .stack-card .lbl { font-family: var(--mono); letter-spacing: 0; color: var(--ann); }
+    .stack-card .lbl::before { content: "@"; }
     .stack-card .a { color: var(--ink-2); }
     .stack-card .a b { color: var(--ink); }
-    .stack-card .side { border-left-color: rgba(13,18,14,.12); }
-    .stack-card .code { background: #1a221b; }
+    .stack-card .side { border-left-color: var(--line); }
+    .owner { border-radius: 6px; color: #1e1f22; }
+    .code { background: var(--bg); border-color: var(--line); border-radius: 8px; }
+    .code figcaption { font-family: var(--mono); color: var(--ink-2); background: var(--paper); border-color: var(--line); }
+    .code pre { font-family: var(--mono); color: var(--ink-2); }
+    pre { font-variant-ligatures: none; }
+    .t-k { color: var(--kw); } .t-s { color: var(--str); } .t-c { color: var(--cmt); }
+    .t-n { color: var(--num); } .t-f { color: var(--fn); } .t-a { color: var(--ann); }
 
-    /* 기술: 두 판은 밝게, 마지막 판만 녹흑 */
-    .panel { border-radius: 12px; background: var(--paper); }
-    .panel:nth-child(3) { background: var(--dark); color: #fff; }
-    .panel:nth-child(3) .k { color: var(--lime); }
-    .panel:nth-child(3) li { color: #c9d1cb; }
-    .panel:nth-child(3) li::before { background: var(--lime); }
+    /* 기술 */
+    .panel { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
+    .panel .k { font-family: var(--mono); letter-spacing: 0; }
+    .panel li { color: var(--ink-2); }
     #skills .common { margin-top: 28px; }
 
-    /* 배경 빛은 아주 옅게, 산만한 효과는 끈다 */
-    .hero::before { background: radial-gradient(circle, rgba(200,240,49,.10), transparent 62%); }
-    .hero::after, .end::before { background: radial-gradient(circle, rgba(200,240,49,.06), transparent 62%); }
-    #glow { display: none; }
+    /* 섹션 리듬 · 산만한 효과 끄기 */
+    .screen:not(.hero) { min-height: 0; padding: clamp(112px, 14vh, 150px) 0; }
+    .hero { padding-bottom: clamp(88px, 12vh, 130px); }
+    .chal { padding-top: clamp(112px, 14vh, 150px); padding-bottom: clamp(64px, 9vh, 100px); }
     .magnet { translate: none !important; }
     .js .words .w { opacity: 1; }
+
+    /* 파일 탭 모드: 연 파일(섹션) 하나만 보인다 */
+    .js body > :is(header, section, footer):not(.open) { display: none; }
+    .js body > .open { min-height: calc(100vh - 100px); border-top: 0; }
   }
-  @media screen and (max-width: 980px) {
-    /* 휴대폰에서도 메뉴가 보이게 가로로 밀어 보기 */
-    .nav { max-width: calc(100vw - 24px); overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); }
-    .nav::-webkit-scrollbar { display: none; }
-    .nav a.lnk { padding: 7px 10px; }
-    .nav a.lnk { display: inline-block; }
-  }
+  @media screen and (min-width: 900px) { :root { --gut: 52px; } }
+  @media screen and (min-width: 1200px) { :root { --tree: 264px; } .tree { display: block; } }
+  @media screen and (max-width: 899px) { #gutter, .titlebar .win, .titlebar .branch { display: none; } }
+  @media screen and (max-width: 700px) { .status .opt { display: none; } }
   @media screen and (max-width: 900px) {
     .stack-card { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 24px 20px; }
     .stack-card .side { border-left: 0; padding-left: 0; }
@@ -360,7 +404,7 @@
     .floating.f2 { top: -24px; right: 12px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .js .rv, .js .pop, .js .eb, .js .nav, .js .floating { opacity: 1; animation: none !important; }
+    .js .rv, .js .pop, .js .eb, .js .floating { opacity: 1; animation: none !important; }
     .js .rise .ln > span { transform: none; transition: none; }
     .js mark { background-size: 100% 42%; transition: none; }
     .js .words .w { opacity: 1; }
@@ -372,16 +416,47 @@
 <div id="bar"></div>
 <div id="glow" aria-hidden="true"></div>
 
-<nav class="nav on-dark" aria-label="섹션">
-  <a class="logo" href="#top"><i>B</i>백성준</a>
-  <a class="lnk" href="#about">소개</a>
-  <a class="lnk" href="#strengths">강점</a>
-  <a class="lnk" href="#projects">프로젝트</a>
-  <a class="lnk" href="#challenges">문제 해결</a>
-  <a class="lnk" href="#skills">기술</a>
-  <a class="lnk" href="#contact">연락</a>
-  <a class="live" href="https://github.com/BaekSeongJun" target="_blank" rel="noopener">GitHub ↗</a>
-</nav>
+<div class="ide-top">
+  <div class="titlebar">
+    <span class="win" aria-hidden="true"><i></i><i></i><i></i></span>
+    <a class="proj" href="#top"><i>BS</i>백성준</a>
+    <span class="branch" aria-hidden="true"><svg class="gi" viewBox="0 0 16 16"><circle cx="5" cy="3.5" r="1.8"/><circle cx="5" cy="12.5" r="1.8"/><circle cx="11" cy="5.5" r="1.8"/><path d="M5 5.3v5.4M11 7.3c0 3-6 1.6-6 3.4"/></svg>main</span>
+    <span class="sp"></span>
+    <a class="run" href="https://github.com/BaekSeongJun" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+  <nav class="tabs" aria-label="섹션">
+    <a class="lnk" href="#top" title="첫 화면"><b class="ic md">M</b>README.md</a>
+    <a class="lnk" href="#about" title="소개"><b class="ic md">M</b>About.md</a>
+    <a class="lnk" href="#strengths" title="강점"><b class="ic md">M</b>Strengths.md</a>
+    <a class="lnk" href="#projects" title="프로젝트"><b class="ic">C</b>Projects.java</a>
+    <a class="lnk" href="#challenges" title="문제 해결"><b class="ic">C</b>Challenges.java</a>
+    <a class="lnk" href="#skills" title="기술"><b class="ic y">Y</b>Skills.yml</a>
+    <a class="lnk" href="#contact" title="연락"><b class="ic md">M</b>Contact.md</a>
+  </nav>
+</div>
+<aside class="tree" aria-label="프로젝트">
+  <div class="tw">Project</div>
+  <ul>
+    <li><span style="--lv:0">▾ <svg class="fd" viewBox="0 0 16 16"><path d="M1.5 3.5h4.2l1.5 1.6h7.3v7.4h-13z"/></svg>baekseongjun.github.io</span></li>
+    <li><span style="--lv:1">▾ <svg class="fd" viewBox="0 0 16 16"><path d="M1.5 3.5h4.2l1.5 1.6h7.3v7.4h-13z"/></svg>src</span></li>
+      <li><a href="#top" style="--lv:2"><b class="ic md">M</b>README.md <small>첫 화면</small></a></li>
+      <li><a href="#about" style="--lv:2"><b class="ic md">M</b>About.md <small>소개</small></a></li>
+      <li><a href="#strengths" style="--lv:2"><b class="ic md">M</b>Strengths.md <small>강점</small></a></li>
+      <li><a href="#projects" style="--lv:2"><b class="ic">C</b>Projects.java <small>프로젝트</small></a></li>
+      <li><a href="#challenges" style="--lv:2"><b class="ic">C</b>Challenges.java <small>문제 해결</small></a></li>
+      <li><a href="#skills" style="--lv:2"><b class="ic y">Y</b>Skills.yml <small>기술</small></a></li>
+      <li><a href="#contact" style="--lv:2"><b class="ic md">M</b>Contact.md <small>연락</small></a></li>
+    <li><span style="--lv:1">▸ <svg class="fd" viewBox="0 0 16 16"><path d="M1.5 3.5h4.2l1.5 1.6h7.3v7.4h-13z"/></svg>img</span></li>
+    <li><span style="--lv:1">▸ <svg class="fd" viewBox="0 0 16 16"><path d="M1.5 3.5h4.2l1.5 1.6h7.3v7.4h-13z"/></svg>fonts</span></li>
+  </ul>
+</aside>
+<div id="gutter" aria-hidden="true"></div>
+<div class="status" aria-hidden="true">
+  <span class="branch"><svg class="gi" viewBox="0 0 16 16"><circle cx="5" cy="3.5" r="1.8"/><circle cx="5" cy="12.5" r="1.8"/><circle cx="11" cy="5.5" r="1.8"/><path d="M5 5.3v5.4M11 7.3c0 3-6 1.6-6 3.4"/></svg>main</span>
+  <span class="path">baekseongjun.github.io › src › README.md</span>
+  <span class="sp"></span>
+  <span class="ln">1:1</span><span class="opt">LF</span><span class="opt">UTF-8</span><span class="opt">4 spaces</span><span class="opt">Java 21</span>
+</div>
 
 <!-- ═══ 히어로 ═══ -->
 <header class="screen hero dark" id="top">
@@ -602,15 +677,19 @@ CREATE INDEX idx_drug_display_name_trgm
     glow.classList.toggle('on', fine && !reduce && slides[cur].classList.contains('dark'));
     requestAnimationFrame(loop);
   })();
-  if (fine && !reduce) document.querySelectorAll('.magnet, .nav .live').forEach(el => {
+  if (fine && !reduce) document.querySelectorAll('.magnet').forEach(el => {
     el.classList.add('magnet');
     el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); el.style.translate = `${(e.clientX - r.left - r.width / 2) * .3}px ${(e.clientY - r.top - r.height / 2) * .4}px`; });
     el.addEventListener('pointerleave', () => { el.style.translate = ''; });
   });
 
-  const bar = document.getElementById('bar'), nav = document.querySelector('.nav');
-  const links = [...document.querySelectorAll('.nav a.lnk')];
-  const markNav = s => { links.forEach(a => a.classList.toggle('cur', a.getAttribute('href') === '#' + s.id)); nav.classList.toggle('on-dark', s.classList.contains('dark')); };
+  const bar = document.getElementById('bar'), nav = document.querySelector('.tabs');
+  const links = [...document.querySelectorAll('.tabs a, .tree a')];
+  const statusPath = document.querySelector('.status .path'), statusLn = document.querySelector('.status .ln');
+  const markNav = s => {
+    links.forEach(a => a.classList.toggle('cur', a.getAttribute('href') === '#' + s.id));
+    const t = nav.querySelector('a.cur'); if (t) statusPath.textContent = 'baekseongjun.github.io › src › ' + t.lastChild.textContent;
+  };
 
   {
     // ── 스크롤 모드: 화면에 들어오면 한 번 등장, 내비는 지금 보이는 장 기준 ──
@@ -621,8 +700,7 @@ CREATE INDEX idx_drug_display_name_trgm
     addEventListener('scroll', () => {
       const h = document.documentElement;
       bar.style.transform = `scaleX(${h.scrollTop / (h.scrollHeight - innerHeight || 1)})`;
-      const k = slides.findLastIndex(s => s.getBoundingClientRect().top <= 80);
-      cur = Math.max(0, k); markNav(slides[cur]);
+      statusLn.textContent = (Math.floor((scrollY + 76) / 26) + 1) + ':1';
     }, { passive: true });
   }
   // 쌓이는 카드: 높이를 맞추거나(화면에 들어올 때) 멈추는 위치를 올려(화면보다 길 때) 카드 끝까지 읽히게
@@ -634,13 +712,43 @@ CREATE INDEX idx_drug_display_name_trgm
     else items.forEach((li, k) => li.style.top = Math.min(100, innerHeight - hs[k] - 16) + 'px');
   }
   addEventListener('load', fitStack); addEventListener('resize', fitStack);
-  // 휴대폰 메뉴: 지금 보는 섹션 링크를 가로로 따라가 보이게
-  let lastCur = null;
-  addEventListener('scroll', () => {
-    const c = document.querySelector('.nav a.lnk.cur');
-    if (c && c !== lastCur && nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: c.offsetLeft - nav.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
-    lastCur = c;
-  }, { passive: true });
+
+  // IDE 장식: 왼쪽 줄 번호를 문서 길이만큼 채운다
+  const gutter = document.getElementById('gutter');
+  function fillGutter() {
+    gutter.style.height = '0';
+    const h = document.documentElement.scrollHeight;
+    gutter.style.height = h + 'px';
+    gutter.textContent = Array.from({ length: Math.ceil(h / 26) }, (_, i) => i + 1).join('\n');
+  }
+  addEventListener('load', fillGutter); addEventListener('resize', fillGutter);
+
+  // 파일 열기: 주소의 #섹션에 해당하는 섹션만 보여 주고 맨 위로
+  function openFile() {
+    const k = Math.max(0, slides.findIndex(s => '#' + s.id === location.hash));
+    slides.forEach((s, i) => s.classList.toggle('open', i === k));
+    cur = k; markNav(slides[k]);
+    scrollTo(0, 0); fitStack(); fillGutter();
+    statusLn.textContent = '1:1';
+    // 휴대폰: 연 파일 탭이 보이게 가로로 따라간다
+    const c = nav.querySelector('a.cur');
+    if (c && nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: c.offsetLeft - nav.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
+  }
+  addEventListener('hashchange', openFile);
+  openFile();
+
+  // 코드 블록에 IDE 문법 색을 입힌다 (글자는 그대로, 색만)
+  const esc = t => t.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const syntax = /(\/\/.*)|("(?:[^"\\]|\\.)*")|(@\w+)|\b(return|if|throw|new|String|CREATE|EXTENSION|IF|NOT|EXISTS|INDEX|ON|USING)\b|\b(\d+)\b|(\w+)(?=\()/g;
+  document.querySelectorAll('.code pre, .vis pre').forEach(pre => {
+    const src = pre.textContent; let out = '', last = 0;
+    for (const m of src.matchAll(syntax)) {
+      const cls = m[1] ? 'c' : m[2] ? 's' : m[3] ? 'a' : m[4] ? 'k' : m[5] ? 'n' : 'f';
+      out += esc(src.slice(last, m.index)) + `<span class="t-${cls}">${esc(m[0])}</span>`;
+      last = m.index + m[0].length;
+    }
+    pre.innerHTML = out + esc(src.slice(last));
+  });
 </script>
 </body>
 </html>
