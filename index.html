@@ -101,14 +101,6 @@
   .btn.solid::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(90deg, transparent, rgba(200,240,49,.35), transparent); transform: skewX(-20deg); animation: shine 3.2s ease-in-out 2s infinite; }
   .btn.line { border: 1px solid rgba(255,255,255,.25); color: #e2e8f0; }
 
-  /* 브라우저 프레임 */
-  .browser { border-radius: 18px; overflow: hidden; background: #111811; box-shadow: 0 40px 90px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.07); position: relative;
-    transform: perspective(1600px) rotateY(-9deg) rotateX(4deg); }
-  .browser .chrome { height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #1a221b; }
-  .browser .chrome i { width: 11px; height: 11px; border-radius: 50%; }
-  .browser .chrome i:nth-child(1) { background: #f87171; } .browser .chrome i:nth-child(2) { background: #fbbf24; } .browser .chrome i:nth-child(3) { background: #34d399; }
-  .browser .chrome span { margin-left: 10px; flex: 1; max-width: 360px; font-size: 12.5px; color: #94a3b8; background: rgba(255,255,255,.06); border-radius: 7px; padding: 4px 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .browser img { display: block; width: 100%; height: auto; }
   .shot { position: relative; }
   .floating { position: absolute; left: -46px; bottom: -34px; z-index: 2; background: rgba(20,27,21,.92); border: 1px solid var(--dark-line); border-radius: 18px; padding: 16px 20px; box-shadow: 0 24px 50px rgba(0,0,0,.4); }
   .floating.f2 { left: auto; right: -26px; bottom: auto; top: -30px; }
@@ -119,7 +111,7 @@
   .floating .v { font-size: 17px; font-weight: 750; margin-top: 4px; }
   @keyframes bob { from { transform: translateY(0); } to { transform: translateY(-12px); } }
   @media (max-width: 900px) {
-    .hero .wrap { grid-template-columns: minmax(0, 1fr); } .browser { transform: none; }
+    .hero .wrap { grid-template-columns: minmax(0, 1fr); }
     .floating { left: 12px; bottom: -24px; } .floating.f2 { right: 12px; top: -24px; }
     .hero-meta { grid-template-columns: 1fr; }
   }
@@ -209,7 +201,6 @@
     .js .rv, .js .pop, .js .eb, .js .words .w { opacity: 1 !important; animation: none !important; }
     .js .rise .ln > span { transform: none !important; }
     .display { font-size: 44pt; } h2.title { font-size: 26pt; }
-    .browser { transform: none; box-shadow: none; }
     .stack-item { position: static; }
     .stack-card { background: #fff; border: 1px solid var(--line); box-shadow: none; }
     .stack-card .q, .stack-card .a b { color: var(--ink); }
@@ -322,8 +313,6 @@
     .btn { border-radius: 6px; padding: 12px 22px; font-size: 15px; }
     .btn.solid { background: var(--accent); color: #fff; }
     .btn.line { border-color: #4e5157; color: var(--ink); }
-    .browser { border-radius: 10px; transform: none; background: var(--paper); box-shadow: 0 30px 70px rgba(0,0,0,.45), 0 0 0 1px var(--line); }
-    .browser .chrome { background: var(--paper); border-bottom: 1px solid var(--line); }
     .floating { background: var(--paper); border: 1px solid #43454a; border-radius: 8px; }
     .floating .t { font-family: var(--mono); letter-spacing: 0; color: var(--fn); }
     .floating.f2 { top: -58px; right: -18px; }
@@ -403,7 +392,31 @@
     .numbers > div:last-child { grid-column: 1 / -1; }
     .floating.f2 { top: -24px; right: 12px; }
   }
+  /* 첫 화면 오른쪽: 프로젝트 화면 카드 8장이 3D 궤도로 천천히 돈다 (영상 없이 CSS만) */
+  .orb-stage { container-type: inline-size; width: 100%; aspect-ratio: 1 / .82; display: grid; place-items: center; perspective: 1600px; }
+  .orb-tilt { transform-style: preserve-3d; transform: rotateZ(-32deg) rotateX(14deg); }
+  .orb { --w: 46cqw; position: relative; width: 0; height: calc(var(--w) * .625); transform-style: preserve-3d; animation: orb-spin 32s linear infinite; }
+  .orb-stage:hover .orb { animation-play-state: paused; }
+  @keyframes orb-spin { to { transform: rotateY(-360deg); } }
+  /* 왼쪽 모서리를 축에 붙이고 45도씩 돌려 책장처럼 펼침 */
+  .orb-card { position: absolute; left: 10px; top: 0; width: var(--w); height: 100%; transform-style: preserve-3d; transform-origin: -10px 50%; transform: rotateY(calc(var(--i) * 45deg)); }
+  .orb-card > * { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .orb-front { background: #2b2d30; box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 18px 40px rgba(0,0,0,.45); }
+  .orb-front img { width: 100%; height: 100%; object-fit: cover; object-position: 0 0; display: block; }
+  /* 뒷면: 비치지 않는 회색 */
+  .orb-back { transform: rotateY(180deg); background: #3a3d42; box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 18px 40px rgba(0,0,0,.45); }
+  /* BooksCamp 카드: 화면 캡처 대신 인증 흐름을 편집기처럼 */
+  .orb-bc { background: #1e1f22; color: #bcbec4; font: 500 calc(var(--w) * .036)/1.65 "JetBrains Mono", Consolas, monospace; padding: 7% 8%; display: flex; flex-direction: column; justify-content: space-between; }
+  .orb-bc .tab { color: #7a7e85; font-size: .9em; }
+  .orb-bc pre { margin: 0; font: inherit; white-space: pre; }
+  .orb-bc .k { color: #cf8e6d; } .orb-bc .f { color: #56a8f5; } .orb-bc .c { color: #7a7e85; }
+  .orb-bc .big { font-family: "Pretendard", "Malgun Gothic", sans-serif; font-weight: 800; font-size: 2.3em; line-height: 1.1; color: #6aab73; letter-spacing: -.02em; }
+  .orb-bc .big small { display: block; font-size: .42em; font-weight: 600; color: #868a91; margin-top: .4em; }
+  /* 휴대폰: 무대를 세로로 늘려 떠 있는 카드 두 장이 궤도를 가리지 않게 */
+  @media (max-width: 900px) { .orb-stage { aspect-ratio: 1 / 1.25; } .orb { --w: 54cqw; } }
+  @media print { .orb-stage { display: none; } }
   @media (prefers-reduced-motion: reduce) {
+    .orb { animation: none; transform: rotateY(-20deg); }
     .js .rv, .js .pop, .js .eb, .js .floating { opacity: 1; animation: none !important; }
     .js .rise .ln > span { transform: none; transition: none; }
     .js mark { background-size: 100% 42%; transition: none; }
@@ -478,9 +491,25 @@
       </div>
     </div>
     <div class="shot rv" style="--d:300">
-      <div class="browser">
-        <div class="chrome"><i></i><i></i><i></i><span>helpnest.kro.kr/console/tickets</span></div>
-        <img src="img/02-agent-ticket.jpg" alt="HelpNest 상담원 티켓 화면">
+      <div class="orb-stage" aria-label="프로젝트 화면 모음">
+        <div class="orb-tilt"><div class="orb">
+          <div class="orb-card" style="--i:0"><div class="orb-front"><img src="img/02-agent-ticket.jpg" alt="HelpNest 상담원 티켓 화면"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:1"><div class="orb-front orb-bc">
+            <div class="tab">auth · ReissueController.java</div>
+<pre><span class="c">// Gateway에서 한 번만 검증</span>
+Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
+       <span class="k">→</span> <span class="f">API</span>      @RequiredRole
+<span class="k">if</span> (!tokenInRedis.<span class="f">equals</span>(refresh))
+    <span class="c">// 탈취 의심 → 삭제</span></pre>
+            <div class="big">BooksCamp<small>8인 MSA · 회원·인증 담당</small></div>
+          </div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:2"><div class="orb-front"><img src="img/yak-price.jpg" alt="우리동네약값 약국별 가격 화면"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:3"><div class="orb-front"><img src="img/05-admin-dashboard.jpg" alt="HelpNest 관리자 대시보드"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:4"><div class="orb-front"><img src="img/bc-swagger.jpg" alt="BooksCamp OpenAPI 문서"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:5"><div class="orb-front"><img src="img/yak-search.jpg" alt="우리동네약값 검색 화면"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:6"><div class="orb-front"><img src="img/04-ai-chat.jpg" alt="HelpNest AI 상담 화면"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:7"><div class="orb-front"><img src="img/01-customer-inquiry.jpg" alt="HelpNest 고객 문의 화면"></div><div class="orb-back"></div></div>
+        </div></div>
       </div>
       <div class="floating f1"><div class="t">HELPNEST · 3인 팀 팀장</div><div class="v">인증 · 회원 · 협업 규칙 설계</div></div>
       <div class="floating f2"><div class="t">BOOKSCAMP · 8인 MSA</div><div class="v">JWT · Redis · Gateway 인증</div></div>
