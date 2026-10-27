@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>백성준 · 백엔드 개발자 포트폴리오</title>
-<meta name="description" content="Java · Spring Boot 백엔드 개발자 백성준의 포트폴리오 겸 이력서. HelpNest · BooksCamp · 우리동네약값 프로젝트.">
+<meta name="description" content="Java · Spring Boot 백엔드 개발자 백성준의 포트폴리오. HelpNest · BooksCamp · 우리동네약값 프로젝트.">
 <meta property="og:title" content="백성준 · 백엔드 개발자 포트폴리오">
 <meta property="og:description" content="인증부터 배포까지, 끝까지 파고드는 백엔드 개발자">
 <meta property="og:image" content="https://baekseongjun.github.io/img/02-agent-ticket.jpg">
@@ -211,29 +211,16 @@
   @media (max-width: 900px) { .stack-card { grid-template-columns: minmax(0, 1fr); } .stack-card .side { border-left: 0; padding-left: 0; } }
 
 
-  /* 이력서 표 */
-  .resume { margin-top: clamp(22px, 3.6vh, 40px); background: var(--paper); border-radius: 30px; padding: clamp(22px, 3.6vh, 44px); }
-  .resume h3 { font-size: 20px; font-weight: 850; letter-spacing: -.02em; margin: 28px 0 10px; padding-left: 12px; border-left: 4px solid var(--primary); }
-  .resume h3:first-child { margin-top: 0; }
-  .resume table { width: 100%; border-collapse: collapse; font-size: 16px; border-top: 2px solid var(--ink); }
-  .resume th, .resume td { padding: 11px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-  .resume th { background: #f8fafc; font-weight: 750; color: var(--ink-2); white-space: nowrap; }
-  .resume thead th { text-align: center; }
-  .resume tbody td:first-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .resume a { color: var(--primary); }
-  .btn.print { border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; font-family: inherit; }
-  @media (max-width: 760px) { .resume { overflow-x: auto; } .resume table { min-width: 560px; font-size: 14px; } }
 
   /* 인쇄 · PDF: 애니메이션과 장식을 빼고 문서처럼 */
   @media print {
     @page { size: A4; margin: 14mm; }
     body { background: #fff; font-size: 12pt; }
-    #bar, #glow, .nav, .cta, .btn.print, .marquee, .floating, .hero::before, .hero::after, .end::before { display: none !important; }
+    #bar, #glow, .nav, .cta, .marquee, .floating, .hero::before, .hero::after, .end::before { display: none !important; }
     .dark { background: #fff !important; color: var(--ink) !important; }
     .dark .intro, .stack-card .a, .end-grid .v, .hero-meta dd { color: var(--ink-2) !important; }
     .screen, .chal { display: block; min-height: 0; padding: 18px 0; }
     .hero .wrap { grid-template-columns: minmax(0, 1fr); }
-    .resume h3 { break-after: avoid; }
     .js .rv, .js .pop, .js .eb, .js .words .w { opacity: 1 !important; animation: none !important; }
     .js .rise .ln > span { transform: none !important; }
     .display { font-size: 44pt; } h2.title { font-size: 26pt; }
@@ -241,8 +228,7 @@
     .stack-item { position: static; }
     .stack-card { background: #fff; border: 1px solid var(--line); box-shadow: none; }
     .stack-card .q, .stack-card .a b { color: var(--ink); }
-    .role-card, .stack-card, .resume table, .panel { break-inside: avoid; }
-    .resume { padding: 0; }
+    .role-card, .stack-card, .panel { break-inside: avoid; }
   }
 
   /* 기술 */
@@ -292,17 +278,13 @@
     /* 4. 첫 화면 아래 여백을 다른 경계와 비슷하게 */
     .hero { padding-bottom: clamp(88px, 12vh, 130px); }
     .chal { padding-top: clamp(120px, 16vh, 180px); padding-bottom: clamp(64px, 9vh, 100px); }
-    #strengths, #career { background: #fcfdfd; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    #career .resume { background: var(--bg); }
+    #strengths { background: #fcfdfd; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 
     /* 포인트: 라임 버튼 · 로고, 섹션 번호는 녹흑 알약에 라임 글씨 */
     .nav .logo i, .nav a.live, .btn.solid { background: var(--lime); color: var(--ink); }
     .eyebrow .no, .dark .eyebrow .no { background: var(--ink); color: var(--lime); }
     .dark .eyebrow .no { box-shadow: inset 0 0 0 1px rgba(200,240,49,.4); }
     code { background: #e3f3a6; color: var(--ink); }
-    .resume h3 { border-left-color: var(--ink); }
-    .resume a { text-decoration: underline; text-decoration-color: var(--ink); }
-    .resume th { background: var(--panel); }
     .marquee .track span::after { color: var(--muted); }
 
     /* 형광펜: 밝은 화면은 옅은 라임, 어두운 화면은 글씨만 라임 */
@@ -396,7 +378,6 @@
   <a class="lnk" href="#strengths">강점</a>
   <a class="lnk" href="#projects">프로젝트</a>
   <a class="lnk" href="#challenges">문제 해결</a>
-  <a class="lnk" href="#career">이력서</a>
   <a class="lnk" href="#skills">기술</a>
   <a class="lnk" href="#contact">연락</a>
   <a class="live" href="https://github.com/BaekSeongJun" target="_blank" rel="noopener">GitHub ↗</a>
@@ -406,7 +387,7 @@
 <header class="screen hero dark" id="top">
   <div class="wrap">
     <div class="hero-copy">
-      <span class="kick eb">Portfolio · Résumé</span>
+      <span class="kick eb">Portfolio</span>
       <h1 class="display rise"><span class="ln"><span>백성준</span></span><span class="ln"><span>Backend.</span></span></h1>
       <p class="tagline rv" style="--d:450">인증부터 배포까지, <mark>끝까지 파고드는</mark> 개발자.</p>
       <p class="lead rv" style="--d:550">Java · Spring Boot로 인증 · 인가와 핵심 도메인을 만들고, Claude Code로 팀의 개발 규칙까지 설계합니다. 물류 현장 2년의 경험으로 현장에서 실제로 쓰이는 시스템을 생각합니다.</p>
@@ -545,56 +526,10 @@ CREATE INDEX idx_drug_display_name_trgm
   </div>
 </section>
 
-<!-- ═══ 이력서: 한국식 표 ═══ -->
-<section class="screen" id="career">
-  <div class="wrap">
-    <div class="head-row">
-      <div>
-        <span class="eyebrow eb"><span class="no">05</span>Résumé</span>
-        <h2 class="title rise"><span class="ln"><span><mark>이력서</mark></span></span></h2>
-      </div>
-      <button class="btn print" type="button" onclick="print()">PDF로 저장 · 인쇄</button>
-    </div>
-    <div class="resume rv" style="--d:250">
-      <h3>인적사항</h3>
-      <table><tbody>
-        <tr><th>성명</th><td>백성준 (Baek Seongjun)</td><th>지원 분야</th><td>백엔드 개발 (신입)</td></tr>
-        <tr><th>연락처</th><td>010-6865-3056</td><th>이메일</th><td><a href="mailto:por9535@gmail.com">por9535@gmail.com</a></td></tr>
-        <tr><th>거주지</th><td>경기도 성남시</td><th>병역</th><td>병역 필 (산업기능요원, 보충역)</td></tr>
-        <tr><th>GitHub</th><td colspan="3"><a href="https://github.com/BaekSeongJun" target="_blank" rel="noopener">github.com/BaekSeongJun</a></td></tr>
-      </tbody></table>
-
-      <h3>학력</h3>
-      <table><thead><tr><th>기간</th><th>학교</th><th>전공 · 학위</th><th>비고</th></tr></thead><tbody>
-        <tr><td>2020.03 – 2026.02</td><td>충남대학교 (대전)</td><td>컴퓨터공학 · 공학사</td><td>졸업 · 3학년 편입 · 평점 3.24 / 4.5</td></tr>
-        <tr><td>2019.03 – 2019.10</td><td>국가평생교육진흥원</td><td>학점은행제 경영학</td><td>48학점 이수</td></tr>
-        <tr><td>2018.03 – 2019.02</td><td>경성대학교 (부산)</td><td>컴퓨터공학과</td><td>중퇴 · 평점 4.129 / 4.5</td></tr>
-      </tbody></table>
-
-      <h3>경력</h3>
-      <table><thead><tr><th>기간</th><th>회사</th><th>직무</th><th>담당 업무</th></tr></thead><tbody>
-        <tr><td>2021.03 – 2023.04</td><td>(주)트렉스타</td><td>산업기능요원 · 물류</td><td>신발 · 의류 반품 처리와 반품 전산 관리, 재고 관리, 입고 · 출고 처리, 상차 지원</td></tr>
-      </tbody></table>
-
-      <h3>교육 이수</h3>
-      <table><thead><tr><th>기간</th><th>기관</th><th>과정</th><th>비고</th></tr></thead><tbody>
-        <tr><td>2026.05 – 2026.11</td><td>하이미디어아카데미</td><td>자바와 생성형AI를 활용한 차세대 CRM플랫폼개발 6기</td><td>2026.11.04 수료 예정 · HelpNest · 우리동네약값</td></tr>
-        <tr><td>2025.07 – 2026.01</td><td>NHN Academy</td><td>Java 백엔드 개발자 과정</td><td>수료 · BooksCamp</td></tr>
-      </tbody></table>
-
-      <h3>자격 · 어학</h3>
-      <table><thead><tr><th>취득일</th><th>자격 · 시험</th><th>발급 기관</th><th>등급</th></tr></thead><tbody>
-        <tr><td>2025.06</td><td>SQLD (SQL 개발자)</td><td>한국데이터산업진흥원</td><td>합격</td></tr>
-        <tr><td>–</td><td>OPIc 영어</td><td>ACTFL</td><td>IM2</td></tr>
-      </tbody></table>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ 기술 ═══ -->
 <section class="screen" id="skills">
   <div class="wrap">
-    <span class="eyebrow eb"><span class="no">06</span>Skills</span>
+    <span class="eyebrow eb"><span class="no">05</span>Skills</span>
     <h2 class="title rise"><span class="ln"><span>주로 쓰는 기술과</span></span><span class="ln"><span><mark>자격</mark></span></span></h2>
     <div class="skills">
       <div class="panel rv" style="--c:var(--primary);--d:300"><div class="k">PRIMARY</div><h3>Backend</h3><ul>

@@ -1,6 +1,6 @@
 # 백성준 포트폴리오
 
-백엔드 개발자 백성준의 포트폴리오 겸 이력서 페이지입니다.
+백엔드 개발자 백성준의 포트폴리오 페이지입니다.
 
 - 주소: https://baekseongjun.github.io
 - 구성: 빌드 도구 없는 단일 `index.html` (CSS · 바닐라 JS), Pretendard 폰트
