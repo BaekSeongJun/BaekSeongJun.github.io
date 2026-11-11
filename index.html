@@ -396,14 +396,14 @@
     .numbers > div:last-child { grid-column: 1 / -1; }
     .floating.f2 { top: -24px; right: 12px; }
   }
-  /* 첫 화면 오른쪽: 프로젝트 화면 카드 8장이 3D 궤도로 천천히 돈다 (영상 없이 CSS만) */
+  /* 첫 화면 오른쪽: 프로젝트 화면 카드 7장이 3D 궤도로 천천히 돈다 (영상 없이 CSS만) */
   .orb-stage { container-type: inline-size; width: 100%; aspect-ratio: 1 / .82; display: grid; place-items: center; perspective: 1600px; }
   .orb-tilt { transform-style: preserve-3d; transform: rotateZ(-32deg) rotateX(14deg); }
   .orb { --w: 46cqw; position: relative; width: 0; height: calc(var(--w) * .625); transform-style: preserve-3d; animation: orb-spin 32s linear infinite; }
   .orb-stage:hover .orb { animation-play-state: paused; }
   @keyframes orb-spin { to { transform: rotateY(-360deg); } }
-  /* 왼쪽 모서리를 축에 붙이고 45도씩 돌려 책장처럼 펼침 */
-  .orb-card { position: absolute; left: 10px; top: 0; width: var(--w); height: 100%; transform-style: preserve-3d; transform-origin: -10px 50%; transform: rotateY(calc(var(--i) * 45deg)); }
+  /* 왼쪽 모서리를 축에 붙이고 같은 각도로 돌려 책장처럼 펼침 */
+  .orb-card { position: absolute; left: 10px; top: 0; width: var(--w); height: 100%; transform-style: preserve-3d; transform-origin: -10px 50%; transform: rotateY(calc(var(--i) * 360deg / 7)); }
   .orb-card > * { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
   .orb-front { background: #2b2d30; box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 18px 40px rgba(0,0,0,.45); }
   .orb-front img { width: 100%; height: 100%; object-fit: cover; object-position: 0 0; display: block; }
@@ -507,10 +507,9 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
           </div><div class="orb-back"></div></div>
           <div class="orb-card" style="--i:2"><div class="orb-front"><img src="img/yak-price.jpg" alt="우리동네약값 약국별 가격 화면"></div><div class="orb-back"></div></div>
           <div class="orb-card" style="--i:3"><div class="orb-front"><img src="img/05-admin-dashboard.jpg" alt="HelpNest 관리자 대시보드"></div><div class="orb-back"></div></div>
-          <div class="orb-card" style="--i:4"><div class="orb-front"><img src="img/bc-swagger.jpg" alt="BooksCamp OpenAPI 문서"></div><div class="orb-back"></div></div>
-          <div class="orb-card" style="--i:5"><div class="orb-front"><img src="img/yak-search.jpg" alt="우리동네약값 검색 화면"></div><div class="orb-back"></div></div>
-          <div class="orb-card" style="--i:6"><div class="orb-front"><img src="img/04-ai-chat.jpg" alt="HelpNest AI 상담 화면"></div><div class="orb-back"></div></div>
-          <div class="orb-card" style="--i:7"><div class="orb-front"><img src="img/01-customer-inquiry.jpg" alt="HelpNest 고객 문의 화면"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:4"><div class="orb-front"><img src="img/bc-home.jpg" alt="BooksCamp 온라인 서점 메인 화면"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:5"><div class="orb-front"><img src="img/04-ai-chat.jpg" alt="HelpNest AI 상담 화면"></div><div class="orb-back"></div></div>
+          <div class="orb-card" style="--i:6"><div class="orb-front"><img src="img/01-customer-inquiry.jpg" alt="HelpNest 고객 문의 화면"></div><div class="orb-back"></div></div>
         </div></div>
       </div>
       <div class="floating f1"><div class="t">PERFORMANCE · 검색 응답</div><div class="v">124ms → 0.5ms</div></div>
@@ -547,7 +546,7 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
     <div class="pain">
       <div class="pain-row rv" style="--d:300"><span class="no">01</span><h3>보안부터 설계하기</h3><p>JWT를 메모리와 httpOnly 쿠키로 나눠 <b>XSS · CSRF</b>를 막고, Refresh Token을 Redis에서 재발급마다 바꿔 <b>탈취를 감지</b>하는 인증을 만들었습니다. 소셜 로그인 계정 선점 공격도 막았습니다.</p></div>
       <div class="pain-row rv" style="--d:420"><span class="no">02</span><h3>원인을 끝까지 찾기</h3><p><code>EXPLAIN ANALYZE</code>로 인덱스를 못 타던 원인(OR 조건 · C 로케일)을 찾아 검색을 <b>124ms → 0.5ms</b>로 줄였습니다. CloudFront 뒤에서 실제 IP를 못 보던 문제도 X-Forwarded-For 순서부터 추적해 풀었습니다.</p></div>
-      <div class="pain-row rv" style="--d:540"><span class="no">03</span><h3>빠르게 배워 끝까지 만들기</h3><p>처음 접한 MSA · Gateway · Redis 인증을 짧은 기간에 익혀 <b>회원 · 인증 기능 전체</b>를 구현했습니다. <b>Claude Code</b>를 활용해 기획 · 설계부터 화면까지 서비스 하나를 혼자 완성했습니다.</p></div>
+      <div class="pain-row rv" style="--d:540"><span class="no">03</span><h3>빠르게 배워 끝까지 만들기</h3><p>처음 접한 MSA · Gateway · Redis 인증을 짧은 기간에 익혀 <b>회원 · 인증 기능 전체</b>를 구현했습니다. 기획 · 설계부터 화면까지 서비스 하나를 혼자 완성했습니다.</p></div>
     </div>
   </div>
 </section>
@@ -576,7 +575,7 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
           <div class="links"><a href="https://github.com/BaekSeongJun/miniproject1" target="_blank" rel="noopener">GitHub ↗</a></div></div>
           <div class="shots"><img src="img/yak-price.jpg" alt="우리동네약값 약국별 약 가격 비교 화면"></div></div></div>
     </div>
-    <div class="common"><span class="lbl">그 밖에</span><span class="chip pop" style="--d:500">Todo 서비스 · Spring Boot + Next.js 모노레포</span><span class="chip pop" style="--d:560">Invoice Web · Supabase · shadcn/ui</span><span class="chip pop" style="--d:620">둘 다 Claude Code 바이브 코딩</span></div>
+    <div class="common"><span class="lbl">그 밖에</span><span class="chip pop" style="--d:500">Todo 서비스 · Spring Boot + Next.js 모노레포</span><span class="chip pop" style="--d:560">Invoice Web · Supabase · shadcn/ui</span></div>
   </div>
 </section>
 
