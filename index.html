@@ -445,8 +445,8 @@
     <a class="lnk" href="#top" title="첫 화면"><b class="ic md">M</b>README.md</a>
     <a class="lnk" href="#about" title="소개"><b class="ic md">M</b>About.md</a>
     <a class="lnk" href="#strengths" title="강점"><b class="ic md">M</b>Strengths.md</a>
-    <a class="lnk" href="#projects" title="프로젝트"><b class="ic">C</b>Projects.java</a>
     <a class="lnk" href="#skills" title="기술"><b class="ic y">Y</b>Skills.yml</a>
+    <a class="lnk" href="#projects" title="프로젝트"><b class="ic">C</b>Projects.java</a>
     <a class="lnk" href="#contact" title="연락"><b class="ic md">M</b>Contact.md</a>
   </nav>
 </div>
@@ -458,8 +458,8 @@
       <li><a href="#top" style="--lv:2"><b class="ic md">M</b>README.md <small>첫 화면</small></a></li>
       <li><a href="#about" style="--lv:2"><b class="ic md">M</b>About.md <small>소개</small></a></li>
       <li><a href="#strengths" style="--lv:2"><b class="ic md">M</b>Strengths.md <small>강점</small></a></li>
-      <li><a href="#projects" style="--lv:2"><b class="ic">C</b>Projects.java <small>프로젝트</small></a></li>
       <li><a href="#skills" style="--lv:2"><b class="ic y">Y</b>Skills.yml <small>기술</small></a></li>
+      <li><a href="#projects" style="--lv:2"><b class="ic">C</b>Projects.java <small>프로젝트</small></a></li>
       <li><a href="#contact" style="--lv:2"><b class="ic md">M</b>Contact.md <small>연락</small></a></li>
     <li><span style="--lv:1">▸ <svg class="fd" viewBox="0 0 16 16"><path d="M1.5 3.5h4.2l1.5 1.6h7.3v7.4h-13z"/></svg>img</span></li>
     <li><span style="--lv:1">▸ <svg class="fd" viewBox="0 0 16 16"><path d="M1.5 3.5h4.2l1.5 1.6h7.3v7.4h-13z"/></svg>fonts</span></li>
@@ -551,12 +551,29 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
   </div>
 </section>
 
+<!-- ═══ 기술 ═══ -->
+<section class="screen" id="skills">
+  <div class="wrap">
+    <span class="eyebrow eb"><span class="no">03</span>Skills</span>
+    <h2 class="title rise"><span class="ln"><span>주로 쓰는 기술과</span></span><span class="ln"><span><mark>자격</mark></span></span></h2>
+    <div class="skills">
+      <div class="panel rv" style="--c:var(--primary);--d:300"><div class="k">PRIMARY</div><h3>Backend</h3><ul>
+        <li>Java 21 · Spring Boot 3 / 4</li><li>Spring Security · JWT · OAuth2</li><li>Spring Data JPA · JUnit5</li><li>PostgreSQL · MySQL (SQLD)</li><li>Redis · Spring Cloud Gateway · Eureka</li></ul></div>
+      <div class="panel rv" style="--c:var(--teal);--d:400"><div class="k">SECONDARY</div><h3>Frontend · Infra</h3><ul>
+        <li>Next.js 16 · React 19 · TypeScript</li><li>Tailwind CSS · shadcn/ui · Thymeleaf</li><li>Docker Compose · GitHub Actions CI</li><li>AWS Amplify · CloudFront (팀 배포)</li><li>Python 데이터 가공 스크립트</li></ul></div>
+      <div class="panel rv" style="--c:var(--ai);--d:500"><div class="k">AI · COLLABORATION</div><h3>일하는 도구</h3><ul>
+        <li>Claude Code · CLAUDE.md · 에이전트 · 스킬 운영</li><li>Shrimp Task Manager 태스크 관리</li><li>Git 브랜치 전략 · PR · CODEOWNERS</li><li>SonarQube · Maven · IntelliJ IDEA</li><li>GitHub Projects · Discussions</li></ul></div>
+    </div>
+    <div class="common"><span class="lbl">자격 · 어학</span><span class="chip pop" style="--d:700">SQLD · 2025.06</span><span class="chip pop" style="--d:760">OPIc IM2</span><span class="chip pop" style="--d:820">병역 필 (산업기능요원)</span></div>
+  </div>
+</section>
+
 <!-- ═══ 프로젝트 ═══ -->
 <section class="screen" id="projects">
   <div class="wrap">
     <div class="head-row">
       <div>
-        <span class="eyebrow eb"><span class="no">03</span>Projects</span>
+        <span class="eyebrow eb"><span class="no">04</span>Projects</span>
         <h2 class="title rise"><span class="ln"><span>제가 만든 <mark>세 서비스</mark></span></span></h2>
       </div>
       <p class="intro words">화면과 핵심 기능만 담았습니다. 세부 구현은 면접에서 직접 설명드리겠습니다.</p>
@@ -576,23 +593,6 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
           <div class="shots"><img src="img/yak-price.jpg" alt="우리동네약값 약국별 약 가격 비교 화면"></div></div></div>
     </div>
     <div class="common"><span class="lbl">그 밖에</span><span class="chip pop" style="--d:500">Todo 서비스 · Spring Boot + Next.js 모노레포</span><span class="chip pop" style="--d:560">Invoice Web · Supabase · shadcn/ui</span></div>
-  </div>
-</section>
-
-<!-- ═══ 기술 ═══ -->
-<section class="screen" id="skills">
-  <div class="wrap">
-    <span class="eyebrow eb"><span class="no">04</span>Skills</span>
-    <h2 class="title rise"><span class="ln"><span>주로 쓰는 기술과</span></span><span class="ln"><span><mark>자격</mark></span></span></h2>
-    <div class="skills">
-      <div class="panel rv" style="--c:var(--primary);--d:300"><div class="k">PRIMARY</div><h3>Backend</h3><ul>
-        <li>Java 21 · Spring Boot 3 / 4</li><li>Spring Security · JWT · OAuth2</li><li>Spring Data JPA · JUnit5</li><li>PostgreSQL · MySQL (SQLD)</li><li>Redis · Spring Cloud Gateway · Eureka</li></ul></div>
-      <div class="panel rv" style="--c:var(--teal);--d:400"><div class="k">SECONDARY</div><h3>Frontend · Infra</h3><ul>
-        <li>Next.js 16 · React 19 · TypeScript</li><li>Tailwind CSS · shadcn/ui · Thymeleaf</li><li>Docker Compose · GitHub Actions CI</li><li>AWS Amplify · CloudFront (팀 배포)</li><li>Python 데이터 가공 스크립트</li></ul></div>
-      <div class="panel rv" style="--c:var(--ai);--d:500"><div class="k">AI · COLLABORATION</div><h3>일하는 도구</h3><ul>
-        <li>Claude Code · CLAUDE.md · 에이전트 · 스킬 운영</li><li>Shrimp Task Manager 태스크 관리</li><li>Git 브랜치 전략 · PR · CODEOWNERS</li><li>SonarQube · Maven · IntelliJ IDEA</li><li>GitHub Projects · Discussions</li></ul></div>
-    </div>
-    <div class="common"><span class="lbl">자격 · 어학</span><span class="chip pop" style="--d:700">SQLD · 2025.06</span><span class="chip pop" style="--d:760">OPIc IM2</span><span class="chip pop" style="--d:820">병역 필 (산업기능요원)</span></div>
   </div>
 </section>
 
