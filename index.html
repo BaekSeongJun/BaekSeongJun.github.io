@@ -6,7 +6,7 @@
 <title>백성준 · 백엔드 개발자 포트폴리오</title>
 <meta name="description" content="Java · Spring Boot 백엔드 개발자 백성준의 포트폴리오. HelpNest · BooksCamp · 우리동네약값 프로젝트.">
 <meta property="og:title" content="백성준 · 백엔드 개발자 포트폴리오">
-<meta property="og:description" content="인증부터 배포까지, 끝까지 파고드는 백엔드 개발자">
+<meta property="og:description" content="인증부터 성능까지, 끝까지 파고드는 백엔드 개발자">
 <meta property="og:image" content="https://baekseongjun.github.io/img/02-agent-ticket.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%233574f0'/><text x='16' y='22' font-size='15' font-weight='800' text-anchor='middle' fill='white' font-family='sans-serif'>B</text></svg>">
@@ -157,6 +157,8 @@
   .role-card .vis .big { font-size: clamp(48px, 4.6vw, 84px); font-weight: 880; letter-spacing: -.05em; line-height: 1; }
   .role-card .vis .cap { font-size: 16px; font-weight: 650; opacity: .85; margin-top: 8px; }
   .role-card .vis pre { position: absolute; top: 22px; left: 26px; right: 26px; font: 500 13px/1.6 ui-monospace, Consolas, monospace; opacity: .55; white-space: pre; overflow: hidden; }
+  .role-card .sum { font-size: clamp(16px, min(1.15vw, 2vh), 19px); color: var(--ink); margin-top: 12px; line-height: 1.5; }
+  .shots { display: grid; gap: 12px; }
   .role-card .links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
   .role-card .links a { font-size: 14px; font-weight: 750; padding: 6px 14px; border-radius: 999px; background: color-mix(in srgb, var(--c) 10%, #fff); color: var(--c); }
   .common { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
@@ -205,6 +207,8 @@
     .stack-card { background: #fff; border: 1px solid var(--line); box-shadow: none; }
     .stack-card .q, .stack-card .a b { color: var(--ink); }
     .role-card, .stack-card, .panel { break-inside: avoid; }
+    .role-card { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .shots { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
   }
 
   /* 기술 */
@@ -442,7 +446,6 @@
     <a class="lnk" href="#about" title="소개"><b class="ic md">M</b>About.md</a>
     <a class="lnk" href="#strengths" title="강점"><b class="ic md">M</b>Strengths.md</a>
     <a class="lnk" href="#projects" title="프로젝트"><b class="ic">C</b>Projects.java</a>
-    <a class="lnk" href="#challenges" title="문제 해결"><b class="ic">C</b>Challenges.java</a>
     <a class="lnk" href="#skills" title="기술"><b class="ic y">Y</b>Skills.yml</a>
     <a class="lnk" href="#contact" title="연락"><b class="ic md">M</b>Contact.md</a>
   </nav>
@@ -456,7 +459,6 @@
       <li><a href="#about" style="--lv:2"><b class="ic md">M</b>About.md <small>소개</small></a></li>
       <li><a href="#strengths" style="--lv:2"><b class="ic md">M</b>Strengths.md <small>강점</small></a></li>
       <li><a href="#projects" style="--lv:2"><b class="ic">C</b>Projects.java <small>프로젝트</small></a></li>
-      <li><a href="#challenges" style="--lv:2"><b class="ic">C</b>Challenges.java <small>문제 해결</small></a></li>
       <li><a href="#skills" style="--lv:2"><b class="ic y">Y</b>Skills.yml <small>기술</small></a></li>
       <li><a href="#contact" style="--lv:2"><b class="ic md">M</b>Contact.md <small>연락</small></a></li>
     <li><span style="--lv:1">▸ <svg class="fd" viewBox="0 0 16 16"><path d="M1.5 3.5h4.2l1.5 1.6h7.3v7.4h-13z"/></svg>img</span></li>
@@ -477,8 +479,8 @@
     <div class="hero-copy">
       <span class="kick eb">Portfolio</span>
       <h1 class="display rise"><span class="ln"><span>백성준</span></span><span class="ln"><span>Backend.</span></span></h1>
-      <p class="tagline rv" style="--d:450">인증부터 배포까지, <mark>끝까지 파고드는</mark> 개발자.</p>
-      <p class="lead rv" style="--d:550">Java · Spring Boot로 인증 · 인가와 핵심 도메인을 만들고, Claude Code로 팀의 개발 규칙까지 설계합니다.</p>
+      <p class="tagline rv" style="--d:450">인증부터 성능까지, <mark>끝까지 파고드는</mark> 개발자.</p>
+      <p class="lead rv" style="--d:550">Java · Spring Boot로 뚫리지 않는 인증을 설계하고, 느린 쿼리는 실행 계획으로 원인을 찾아 숫자로 개선합니다. 기획부터 화면까지 서비스 하나를 혼자서도 끝까지 만듭니다.</p>
       <dl class="hero-meta rv" style="--d:650">
         <div><dt>Role</dt><dd>백엔드 개발자 (신입)</dd></div>
         <div><dt>Education</dt><dd>충남대 컴퓨터공학 학사 · 2026.02</dd></div>
@@ -501,7 +503,7 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
        <span class="k">→</span> <span class="f">API</span>      @RequiredRole
 <span class="k">if</span> (!tokenInRedis.<span class="f">equals</span>(refresh))
     <span class="c">// 탈취 의심 → 삭제</span></pre>
-            <div class="big">BooksCamp<small>8인 MSA · 회원·인증 담당</small></div>
+            <div class="big">BooksCamp<small>MSA 온라인 서점 · JWT · Redis 인증</small></div>
           </div><div class="orb-back"></div></div>
           <div class="orb-card" style="--i:2"><div class="orb-front"><img src="img/yak-price.jpg" alt="우리동네약값 약국별 가격 화면"></div><div class="orb-back"></div></div>
           <div class="orb-card" style="--i:3"><div class="orb-front"><img src="img/05-admin-dashboard.jpg" alt="HelpNest 관리자 대시보드"></div><div class="orb-back"></div></div>
@@ -511,8 +513,8 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
           <div class="orb-card" style="--i:7"><div class="orb-front"><img src="img/01-customer-inquiry.jpg" alt="HelpNest 고객 문의 화면"></div><div class="orb-back"></div></div>
         </div></div>
       </div>
-      <div class="floating f1"><div class="t">HELPNEST · 3인 팀 팀장</div><div class="v">인증 · 회원 · 협업 규칙 설계</div></div>
-      <div class="floating f2"><div class="t">BOOKSCAMP · 8인 MSA</div><div class="v">JWT · Redis · Gateway 인증</div></div>
+      <div class="floating f1"><div class="t">PERFORMANCE · 검색 응답</div><div class="v">124ms → 0.5ms</div></div>
+      <div class="floating f2"><div class="t">AWARD · NHN Academy</div><div class="v">BooksCamp 최우수상 (1등)</div></div>
     </div>
   </div>
 </header>
@@ -522,11 +524,11 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
   <div class="wrap">
     <span class="eyebrow eb"><span class="no">01</span>About</span>
     <h2 class="title rise"><span class="ln"><span>숫자로 보는</span></span><span class="ln"><span><mark>백성준</mark></span></span></h2>
-    <p class="intro words">세 번의 팀 프로젝트에서 인증 · 인가와 회원 도메인을 맡아 왔습니다. 코드를 쓰기 전에 저장소 구조와 협업 규칙부터 정하는 편입니다.</p>
+    <p class="intro words">인증 · 보안과 데이터베이스 성능에 자신 있습니다. 문제가 생기면 로그와 실행 계획으로 원인을 찾고, 고친 결과는 숫자로 확인합니다.</p>
     <div class="numbers">
-      <div class="rv" style="--d:300"><div class="n"><span data-count="3">3</span><small>프로젝트</small></div><div class="l">모두 팀 프로젝트 · 팀장 2회 (HelpNest · BooksCamp · 우리동네약값)</div></div>
-      <div class="rv" style="--d:380"><div class="n"><span data-count="310">310</span><small>커밋</small></div><div class="l">HelpNest 본인 커밋 (back 144 · front 96 · docs 70)</div></div>
-      <div class="rv" style="--d:460"><div class="n"><span data-count="376">376</span><small>만 건</small></div><div class="l">약값 프로젝트 가격 제보 시드 데이터</div></div>
+      <div class="rv" style="--d:300"><div class="n">0.5<small>ms</small></div><div class="l">약국 검색 응답 시간 (124ms에서 인덱스 개선)</div></div>
+      <div class="rv" style="--d:380"><div class="n"><span data-count="2">2</span><small>회 수상</small></div><div class="l">NHN Academy 최우수상(1등) · 하이미디어아카데미 우수상</div></div>
+      <div class="rv" style="--d:460"><div class="n"><span data-count="376">376</span><small>만 건</small></div><div class="l">가격 데이터를 만들어 검색 성능을 검증</div></div>
       <div class="rv" style="--d:540"><div class="n"><span data-count="25">25</span><small>개월</small></div><div class="l">트렉스타 물류 현장 (반품 · 재고 · 입출고)</div></div>
       <div class="rv" style="--d:620"><div class="n">SQLD</div><div class="l">SQL 개발자 · 2025.06 취득</div></div>
     </div>
@@ -541,11 +543,11 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
 <section class="screen" id="strengths">
   <div class="wrap">
     <span class="eyebrow eb"><span class="no">02</span>Strengths</span>
-    <h2 class="title rise"><span class="ln"><span>제가 일하는</span></span><span class="ln"><span><mark>세 가지 방식</mark></span></span></h2>
+    <h2 class="title rise"><span class="ln"><span>제가 잘하는</span></span><span class="ln"><span><mark>세 가지</mark></span></span></h2>
     <div class="pain">
-      <div class="pain-row rv" style="--d:300"><span class="no">01</span><h3>끝까지 파고들기</h3><p>처음 보는 문제도 <b>공식 문서와 로그</b>를 끝까지 따라갑니다. CloudFront 뒤에서 요청 제한이 실제 IP를 못 보던 문제를 X-Forwarded-For가 붙는 순서부터 추적해 팀원과 함께 풀었습니다.</p></div>
-      <div class="pain-row rv" style="--d:420"><span class="no">02</span><h3>빠르게 배워 쓰기</h3><p>MSA · Spring Cloud Gateway · Redis 인증을 BooksCamp 기간 안에 처음 익혀 <b>8인 팀의 회원 · 인증 도메인 전체</b>를 맡았습니다.</p></div>
-      <div class="pain-row rv" style="--d:540"><span class="no">03</span><h3>협업 구조 설계</h3><p>HelpNest 저장소 3개와 <b>브랜치 전략 · CODEOWNERS · 협업 규칙</b>을 직접 만들고, 팀원 전원이 Claude Code를 같은 공용 설정으로 쓰도록 맞췄습니다.</p></div>
+      <div class="pain-row rv" style="--d:300"><span class="no">01</span><h3>보안부터 설계하기</h3><p>JWT를 메모리와 httpOnly 쿠키로 나눠 <b>XSS · CSRF</b>를 막고, Refresh Token을 Redis에서 재발급마다 바꿔 <b>탈취를 감지</b>하는 인증을 만들었습니다. 소셜 로그인 계정 선점 공격도 막았습니다.</p></div>
+      <div class="pain-row rv" style="--d:420"><span class="no">02</span><h3>원인을 끝까지 찾기</h3><p><code>EXPLAIN ANALYZE</code>로 인덱스를 못 타던 원인(OR 조건 · C 로케일)을 찾아 검색을 <b>124ms → 0.5ms</b>로 줄였습니다. CloudFront 뒤에서 실제 IP를 못 보던 문제도 X-Forwarded-For 순서부터 추적해 풀었습니다.</p></div>
+      <div class="pain-row rv" style="--d:540"><span class="no">03</span><h3>빠르게 배워 끝까지 만들기</h3><p>처음 접한 MSA · Gateway · Redis 인증을 짧은 기간에 익혀 <b>회원 · 인증 기능 전체</b>를 구현했습니다. <b>Claude Code</b>를 활용해 기획 · 설계부터 화면까지 서비스 하나를 혼자 완성했습니다.</p></div>
     </div>
   </div>
 </section>
@@ -556,80 +558,32 @@ Client <span class="k">→</span> <span class="f">Gateway</span>  JWT 검증
     <div class="head-row">
       <div>
         <span class="eyebrow eb"><span class="no">03</span>Projects</span>
-        <h2 class="title rise"><span class="ln"><span>제가 맡은 <mark>세 프로젝트</mark></span></span></h2>
+        <h2 class="title rise"><span class="ln"><span>제가 만든 <mark>세 서비스</mark></span></span></h2>
       </div>
-      <p class="intro words">프로젝트마다 기간 · 인원 · 맡은 역할 · 기술을 먼저 적고, 제가 직접 구현한 내용을 정리했습니다.</p>
+      <p class="intro words">화면과 핵심 기능만 담았습니다. 세부 구현은 면접에서 직접 설명드리겠습니다.</p>
     </div>
     <div class="projects">
-        <div class="rv"><div class="role-card" style="--c:var(--primary)"><div><h3>HelpNest</h3><span class="meta">AI 고객상담(CS) 헬프데스크 · 하이미디어아카데미 메인 프로젝트</span><dl class="facts"><div><dt>기간</dt><dd>2026.09.11 – 11.04</dd></div><div><dt>인원</dt><dd>3인 팀 · 팀장</dd></div><div><dt>역할</dt><dd>인증 · 회원 · 문의 · 협업 구조</dd></div><div><dt>기술</dt><dd>Spring Boot 4.1 · Java 21 · PostgreSQL · Next.js 16 · AWS</dd></div></dl>
-          <ul><li><span class="n">01</span><span>저장소 3개 · 브랜치 전략 · CODEOWNERS · 기술 스택 선정과 초기 세팅</span></li><li><span class="n">02</span><span>Spring Security + JWT 인증 (Access 30분 · Refresh 14일 httpOnly 쿠키)</span></li><li><span class="n">03</span><span>회원 · 문의 접수 · 첨부파일 · FAQ · 답변 템플릿 · 만족도 설문 도메인</span></li><li><span class="n">04</span><span>도메인 연동을 이벤트 / 포트 계약으로 분리</span></li><li><span class="n">05</span><span>프론트 공통 fetch 래퍼 · JWT 자동 재발급 · 역할 기반 AuthGuard</span></li></ul>
-          <div class="links"><a href="https://helpnest.kro.kr" target="_blank" rel="noopener">Live ↗</a><a href="https://github.com/BaekSeongJun/helpnest-back" target="_blank" rel="noopener">back ↗</a><a href="https://github.com/BaekSeongJun/helpnest-front" target="_blank" rel="noopener">front ↗</a></div></div>
-          <img src="img/05-admin-dashboard.jpg" alt="HelpNest 관리자 대시보드"></div></div>
-        <div class="rv"><div class="role-card" style="--c:var(--teal)"><div><h3>BooksCamp</h3><span class="meta">MSA 기반 온라인 서점 · NHN Academy 수료 프로젝트</span><dl class="facts"><div><dt>기간</dt><dd>2025.10.15 – 12.05</dd></div><div><dt>인원</dt><dd>8인 팀</dd></div><div><dt>역할</dt><dd>회원 도메인 · 인증 · 인가 전체</dd></div><div><dt>기술</dt><dd>Spring Cloud Gateway · Eureka · Redis · MySQL</dd></div></dl>
-          <ul><li><span class="n">01</span><span>회원 도메인과 인증 · 인가 전체를 직접 구현</span></li><li><span class="n">02</span><span>Auth 서버 JWT 발급, Refresh Token은 Redis에 저장하고 재발급마다 회전</span></li><li><span class="n">03</span><span>Gateway에서 JWT 검증 후 회원 ID · 권한을 헤더로 전달, API는 <code>@RequiredRole</code> AOP로 인가</span></li><li><span class="n">04</span><span>Payco · Google OAuth2 로그인, 3개월 미접속 휴면 전환 스케줄러</span></li><li><span class="n">05</span><span>마이페이지 · 관리자 회원 관리 화면 (Thymeleaf)</span></li></ul>
+        <div class="rv"><div class="role-card" style="--c:var(--primary)"><div><h3>HelpNest</h3><span class="meta">AI 고객상담(CS) 헬프데스크 · 하이미디어아카데미 우수상</span><p class="sum">고객 문의를 받아 상담원이 티켓으로 처리하고, AI가 답변을 돕는 상담 서비스입니다. 실제로 배포해 운영 중입니다.</p><dl class="facts"><div><dt>기간</dt><dd>2026.09 – 11</dd></div><div><dt>기술</dt><dd>Spring Boot 4 · Java 21 · PostgreSQL · Next.js 16</dd></div></dl>
+          <ul><li><span class="n">01</span><span>이메일 · 소셜 로그인과 JWT 인증 (자동 재발급 · 역할별 화면 접근 제어)</span></li><li><span class="n">02</span><span>문의 접수 · 첨부파일 · FAQ · 답변 템플릿 · 만족도 설문</span></li><li><span class="n">03</span><span>소셜 로그인 계정 선점 공격 차단</span></li></ul>
+          <div class="links"><a href="https://helpnest.kro.kr" target="_blank" rel="noopener">사이트 바로가기 ↗</a><a href="https://github.com/BaekSeongJun/helpnest-back" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+          <div class="shots"><img src="img/01-customer-inquiry.jpg" alt="HelpNest 고객 문의 화면"><img src="img/02-agent-ticket.jpg" alt="HelpNest 상담원 티켓 화면"></div></div></div>
+        <div class="rv"><div class="role-card" style="--c:var(--teal)"><div><h3>BooksCamp</h3><span class="meta">MSA 온라인 서점 · NHN Academy 최우수상 (1등)</span><p class="sum">도서 검색부터 주문까지 되는 온라인 서점을 여러 서비스로 나눈 MSA 구조입니다. 그중 로그인 · 인증 · 회원 기능을 만들었습니다.</p><dl class="facts"><div><dt>기간</dt><dd>2025.10 – 12</dd></div><div><dt>기술</dt><dd>Spring Cloud Gateway · Eureka · Redis · MySQL</dd></div></dl>
+          <ul><li><span class="n">01</span><span>Gateway 한 곳에서 JWT를 검증하는 MSA 인증 · 인가</span></li><li><span class="n">02</span><span>Redis Refresh Token 회전과 탈취 감지</span></li><li><span class="n">03</span><span>Payco · Google 소셜 로그인 · 휴면 계정 전환 · 회원 관리</span></li></ul>
           <div class="links"><a href="https://github.com/nhnacademy-be11-bookscamp" target="_blank" rel="noopener">GitHub ↗</a></div></div>
-          <img src="img/bc-home.jpg" alt="BooksCamp 온라인 서점 메인 화면"></div></div>
-        <div class="rv"><div class="role-card" style="--c:var(--orange)"><div><h3>우리동네약값</h3><span class="meta">일반의약품 최저가 추천 · 하이미디어아카데미 미니 프로젝트</span><dl class="facts"><div><dt>기간</dt><dd>2026.09</dd></div><div><dt>인원</dt><dd>3인 팀 · 팀장 (본인 저장소 1인 개발)</dd></div><div><dt>역할</dt><dd>기획 · 설계 · 백엔드 · 프론트</dd></div><div><dt>기술</dt><dd>Spring Boot 4.1 · PostgreSQL 17 · Next.js 16 · Python</dd></div></dl>
-          <ul><li><span class="n">01</span><span>사용자 제보로 위치별 일반의약품 최저가를 추천하는 서비스</span></li><li><span class="n">02</span><span>Python으로 공공데이터를 시드 SQL로 변환 (약국 23,571곳 · 약품 4,762종)</span></li><li><span class="n">03</span><span><code>EXPLAIN</code>으로 검색이 GIN 인덱스를 못 타는 원인(OR 조건 · C 로케일)을 찾아 수정, 약국 검색 <b>124ms → 0.5ms</b></span></li><li><span class="n">04</span><span>PRD · DB · API 명세 문서를 직접 작성</span></li></ul>
+          <div class="shots"><img src="img/bc-home.jpg" alt="BooksCamp 온라인 서점 메인 화면"></div></div></div>
+        <div class="rv"><div class="role-card" style="--c:var(--orange)"><div><h3>우리동네약값</h3><span class="meta">내 주변 약국 일반의약품 최저가 추천</span><p class="sum">약국마다 다른 일반의약품 가격을 모아, 가까운 약국 중 가장 싼 곳을 알려 주는 서비스입니다. 기획부터 백엔드 · 화면까지 혼자 만들었습니다.</p><dl class="facts"><div><dt>기간</dt><dd>2026.09</dd></div><div><dt>기술</dt><dd>Spring Boot 4 · PostgreSQL 17 · Next.js 16 · Python</dd></div></dl>
+          <ul><li><span class="n">01</span><span>공공데이터로 약국 23,571곳 · 약품 4,762종 데이터 구축</span></li><li><span class="n">02</span><span>376만 건 가격 데이터에서 약국 검색 <b>124ms → 0.5ms</b></span></li><li><span class="n">03</span><span>PRD · DB · API 설계 문서 작성</span></li></ul>
           <div class="links"><a href="https://github.com/BaekSeongJun/miniproject1" target="_blank" rel="noopener">GitHub ↗</a></div></div>
-          <div class="vis"><pre>-- name OR address_road → 둘 다 인덱스
-CREATE INDEX idx_pharmacy_address_road_trgm
-  ON pharmacy USING gin
-  (address_road gin_trgm_ops);</pre><div class="big">376만 건</div><div class="cap">가격 제보 시드 데이터 · Next.js 16 프론트</div></div></div></div>
+          <div class="shots"><img src="img/yak-search.jpg" alt="우리동네약값 메인 화면"></div></div></div>
     </div>
     <div class="common"><span class="lbl">그 밖에</span><span class="chip pop" style="--d:500">Todo 서비스 · Spring Boot + Next.js 모노레포</span><span class="chip pop" style="--d:560">Invoice Web · Supabase · shadcn/ui</span><span class="chip pop" style="--d:620">둘 다 Claude Code 바이브 코딩</span></div>
-  </div>
-</section>
-
-<!-- ═══ 문제 해결: 쌓이는 카드 ═══ -->
-<section class="dark chal" id="challenges">
-  <div class="wrap">
-    <div class="head-row chal-head">
-      <div>
-        <span class="eyebrow eb"><span class="no">04</span>Challenges</span>
-        <h2 class="title rise"><span class="ln"><span>까다로웠던 문제와 <mark>해결</mark></span></span></h2>
-      </div>
-      <p class="intro words">스크롤하면 다음 문제가 앞 카드를 덮으며 올라옵니다. 모두 제가 직접 맡아 해결한 문제입니다.</p>
-    </div>
-    <ul class="stack">
-      <li class="stack-item"><div class="stack-card"><div><div class="no">01 / 04</div><div class="q">JWT를 브라우저 어디에 둘까 (XSS · CSRF)</div><div class="o"><span class="owner" style="--c:var(--primary)">HelpNest</span></div></div><div class="side"><div class="lbl">해결</div><p class="a">Access는 <b>메모리</b>, Refresh는 httpOnly 쿠키 + 해시 저장 · 회전. REST를 Next 프록시로 받아 쿠키를 같은 도메인에 둡니다.</p><figure class="code"><figcaption>AuthController.java</figcaption><pre>return ResponseCookie.from(REFRESH_COOKIE, value)
-        .httpOnly(true)
-        .secure(jwtProperties.refreshCookieSecure())
-        .sameSite(&quot;Lax&quot;)
-        .path(&quot;/&quot;)
-        .maxAge(maxAge)
-        .build();</pre></figure></div></div></li>
-      <li class="stack-item"><div class="stack-card"><div><div class="no">02 / 04</div><div class="q">소셜 로그인으로 남이 선점한 계정 탈취</div><div class="o"><span class="owner" style="--c:var(--primary)">HelpNest</span></div></div><div class="side"><div class="lbl">해결</div><p class="a">제공자가 <b>본인 확인한 이메일</b>만 연결하고, 미인증 계정에 붙을 땐 그 계정의 비밀번호 · 세션을 지웁니다. 직원 계정은 거부.</p><figure class="code"><figcaption>OAuthMemberService.java</figcaption><pre>if (!StringUtils.hasText(profile.email()) || !profile.emailVerified()) {
-    throw new BusinessException(AuthErrorCode.OAUTH_EMAIL_REQUIRED);
-}
-// 직원 계정은 소셜로 들어오지 못하게
-if (existing.filter(m -&gt; m.getRole() != MemberRole.CUSTOMER).isPresent()) {
-    throw new BusinessException(AuthErrorCode.OAUTH_STAFF_NOT_ALLOWED);
-}</pre></figure></div></div></li>
-      <li class="stack-item"><div class="stack-card"><div><div class="no">03 / 04</div><div class="q">MSA에서 인증은 한 곳에서, 탈취된 Refresh Token은 어떻게 막을까</div><div class="o"><span class="owner" style="--c:var(--teal)">BooksCamp</span></div></div><div class="side"><div class="lbl">해결</div><p class="a">JWT 검증은 <b>Gateway 한 곳</b>에서 하고 회원 ID · 권한을 헤더로 넘겨, API는 <b>@RequiredRole</b> 로 권한만 봅니다. Refresh Token은 Redis에 하나만 두고 재발급마다 바꾸며, <b>Redis 값과 다르면 탈취로 보고 세션을 지웁니다.</b></p><figure class="code"><figcaption>auth · ReissueController.java</figcaption><pre>String tokenInRedis =
-        refreshTokenRepository.findByMemberId(userKey);
-// … 로그아웃해서 Redis 에 없으면 401
-
-if (!tokenInRedis.equals(refreshToken)) {
-    log.warn(&quot;Refresh token mismatch (possible token theft). Key: {}&quot;,
-            userKey);
-    refreshTokenRepository.deleteByMemberId(userKey);
-    return new ResponseEntity&lt;&gt;(&quot;Refresh token mismatch&quot;,
-            HttpStatus.UNAUTHORIZED);
-}</pre></figure></div></div></li>
-      <li class="stack-item"><div class="stack-card"><div><div class="no">04 / 04</div><div class="q">인덱스를 만들었는데 왜 검색은 전체 스캔을 할까</div><div class="o"><span class="owner" style="--c:var(--orange)">우리동네약값</span></div></div><div class="side"><div class="lbl">해결</div><p class="a"><code>EXPLAIN ANALYZE</code>로 보니 검색 조건이 <b>name OR address_road</b>인데 한쪽에만 GIN 인덱스가 있어 OR 전체가 인덱스를 못 탔고, <b>C 로케일에서는 한글 trigram이 비어</b> 인덱스가 쓸모없었습니다. 나머지 컬럼에도 인덱스를 추가하고 DB를 ko-KR 로케일로 바꿔, 376만 건 시드 기준 약국 검색이 <b>124ms → 0.5ms</b>가 됐습니다.</p><figure class="code"><figcaption>V6__search_trgm_index.sql</figcaption><pre>-- show_trgm('온누리약국') → {}  (C 로케일)
-CREATE INDEX idx_drug_name_trgm
-    ON drug USING gin (name gin_trgm_ops);
-CREATE INDEX idx_pharmacy_address_road_trgm
-    ON pharmacy USING gin (address_road gin_trgm_ops);</pre></figure></div></div></li>
-    </ul>
   </div>
 </section>
 
 <!-- ═══ 기술 ═══ -->
 <section class="screen" id="skills">
   <div class="wrap">
-    <span class="eyebrow eb"><span class="no">05</span>Skills</span>
+    <span class="eyebrow eb"><span class="no">04</span>Skills</span>
     <h2 class="title rise"><span class="ln"><span>주로 쓰는 기술과</span></span><span class="ln"><span><mark>자격</mark></span></span></h2>
     <div class="skills">
       <div class="panel rv" style="--c:var(--primary);--d:300"><div class="k">PRIMARY</div><h3>Backend</h3><ul>
@@ -652,7 +606,7 @@ CREATE INDEX idx_pharmacy_address_road_trgm
       <div class="rv" style="--d:500"><div class="k">EMAIL</div><div class="v"><a href="mailto:por9535@gmail.com">por9535@gmail.com ↗</a></div></div>
       <div class="rv" style="--d:600"><div class="k">GITHUB</div><div class="v"><a href="https://github.com/BaekSeongJun" target="_blank" rel="noopener">github.com/BaekSeongJun ↗</a></div></div>
     </div>
-    <div class="foot"><span>백성준 — 인증부터 배포까지, 끝까지 파고드는 백엔드 개발자</span><a href="#top">맨 위로 ↑</a></div>
+    <div class="foot"><span>백성준 — 인증부터 성능까지, 끝까지 파고드는 백엔드 개발자</span><a href="#top">맨 위로 ↑</a></div>
   </div>
 </footer>
 
@@ -727,15 +681,6 @@ CREATE INDEX idx_pharmacy_address_road_trgm
       statusLn.textContent = (Math.floor((scrollY + 76) / 26) + 1) + ':1';
     }, { passive: true });
   }
-  // 쌓이는 카드: 높이를 맞추거나(화면에 들어올 때) 멈추는 위치를 올려(화면보다 길 때) 카드 끝까지 읽히게
-  function fitStack() {
-    const items = [...document.querySelectorAll('.stack-item')];
-    items.forEach(li => { li.style.top = ''; li.firstElementChild.style.minHeight = ''; });
-    const hs = items.map(li => li.firstElementChild.offsetHeight), max = Math.max(...hs);
-    if (max + 100 <= innerHeight) items.forEach(li => li.firstElementChild.style.minHeight = max + 'px');
-    else items.forEach((li, k) => li.style.top = Math.min(100, innerHeight - hs[k] - 16) + 'px');
-  }
-  addEventListener('load', fitStack); addEventListener('resize', fitStack);
 
   // IDE 장식: 왼쪽 줄 번호를 문서 길이만큼 채운다
   const gutter = document.getElementById('gutter');
@@ -752,7 +697,7 @@ CREATE INDEX idx_pharmacy_address_road_trgm
     const k = Math.max(0, slides.findIndex(s => '#' + s.id === location.hash));
     slides.forEach((s, i) => s.classList.toggle('open', i === k));
     cur = k; markNav(slides[k]);
-    scrollTo(0, 0); fitStack(); fillGutter();
+    scrollTo(0, 0); fillGutter();
     statusLn.textContent = '1:1';
     // 휴대폰: 연 파일 탭이 보이게 가로로 따라간다
     const c = nav.querySelector('a.cur');
